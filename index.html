@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>ネコカルテ</title>
-
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/index.css">
+    <meta charset="UTF-8">
+    <title>猫の健康相談AI</title>
 </head>
-
 <body>
-  
-  <main>
+    <h1>🐱 猫の健康相談チャット</h1>
+    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px;"></div>
+    
+    <input type="text" id="user-input" placeholder="症状を入力してください..." style="width: 70%;">
+    <button onclick="sendMessage()">送信</button>
 
-    <section id="slide">
+    <script>
+        async function sendMessage() {
+            const inputField = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+            const text = inputField.value;
+            if (!text) return;
 
-      <button id="prev" type="button" aria-label="前の画像へ">
-        &#10094;
-      </button>
+            // ユーザーの発言を表示
+            chatBox.innerHTML += `<p><b>あなた:</b> ${text}</p>`;
+            inputField.value = '';
 
-        <div class="slide-content">
-          <div id="slide_text">
-            ネコのグルメ（肉と麺）
-          </div>
+            try {
+                // FastAPI（バックエンド）へPOSTリクエストを送信
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
 
-        </div>
-
-      <button id="next" type="button" aria-label="次の画像へ">
-        &#10095;
-      </button>
-      
-    </section>
-  </main>
-</body> 
+                const data = await response.json();
+                
+                // AIからの返答を表示
+                chatBox.innerHTML += `<p><b>AI:</b> ${data.reply}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                chatBox.innerHTML += `<p style="color: red;">エラーが発生しました。</p>`;
+            }
+        }
+    </script>
+</body>
 </html>
