@@ -1,11 +1,15 @@
 import os
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from google import genai
 
 app = FastAPI()
 
 client = genai.Client()
 
+@app.get("/")
+async def read_index():
+  return FileResponse("index.html")
 
 @app.post("/api/chat")
 async def chat_with_gemini(data: dict):
@@ -14,5 +18,6 @@ async def chat_with_gemini(data: dict):
   response = client.models.generate_content(
       model="gemini-2.5-flash", contents=user_message
   )
+  
 
   return {"reply": response.text}
