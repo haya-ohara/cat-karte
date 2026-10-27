@@ -21,7 +21,7 @@ async def chat_with_gemini(data: ChatRequest):
 
   try:
     response = client.models.generate_content(
-        model="gemini-1.5-flash", contents=user_message
+        model="gemini-3.6-flash", contents=user_message
     )
     return {"reply": response.text}
   except Exception as e:
