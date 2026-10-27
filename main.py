@@ -6,6 +6,9 @@ app = FastAPI()
 
 client = genai.Client()
 
+@app.get("/")
+async def read_index():
+  return FileResponse("index.html")
 
 @app.post("/api/chat")
 async def chat_with_gemini(data: dict):
