@@ -1,0 +1,32 @@
+[
+  {
+    "symptom_name": "吐く",
+    "possible_diseases": [
+      {
+        "disease_name": "胃腸炎",
+        "details": "胃や腸の粘膜に炎症が起きる病気。",
+        "solution": "対処法"
+      },
+      {
+        "disease_name": "毛球症",
+        "details": "毛づくろいで飲み込んだ毛が胃や腸に溜まってしまう病気。",
+        "solution": "対処法"
+      }
+    ]
+  },
+  {
+    "symptom_name": "吐く",
+    "possible_diseases": [
+      {
+        "disease_name": "胃腸炎",
+        "details": "胃や腸の粘膜に炎症が起きる病気。",
+        "solution": "対処法"
+      },
+      {
+        "disease_name": "毛球症",
+        "details": "毛づくろいで飲み込んだ毛が胃や腸に溜まってしまう病気。",
+        "solution": "対処法"
+      }
+    ]
+  }
+]
