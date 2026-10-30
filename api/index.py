@@ -4,6 +4,8 @@ from fastapi.responses import FileResponse
 from google import genai
 from pydantic import BaseModel
 
+template = "あなたは獣医師AIです。これから猫の病気の診断をしてもらいます。以下の飼い主からの相談をもとに質問内容を考え診断を行ってください。"
+
 app = FastAPI()
 
 client = genai.Client()
@@ -21,7 +23,8 @@ async def chat_with_gemini(data: ChatRequest):
 
   try:
     response = client.models.generate_content(
-        model="gemini-3.6-flash", contents=user_message
+        model="gemini-3.5-flash-lite",
+        contents=template+user_message
     )
     return {"reply": response.text}
   except Exception as e:

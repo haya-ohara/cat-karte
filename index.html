@@ -2,43 +2,51 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>猫の健康相談AI</title>
+    <title>ねこカルテ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- フォント読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>🐱 猫の健康相談チャット</h1>
-    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px;"></div>
-    
-    <input type="text" id="user-input" placeholder="症状を入力してください..." style="width: 70%;">
-    <button onclick="sendMessage()">送信</button>
+    <!-- ヘッダー -->
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/shared/アイコン.png" alt="ねこカルテ">
+        </a>
 
-    <script>
-        async function sendMessage() {
-            const inputField = document.getElementById('user-input');
-            const chatBox = document.getElementById('chat-box');
-            const text = inputField.value;
-            if (!text) return;
+        <div class="header-nav-container">
+            <nav>
+                <ul>
+                    <li><a href="disease_list.html">病気一覧</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <img src="img/shared/ネコ線.png" alt="" class="nav-cat-img">
+        </div>
+    </header>
 
-            // ユーザーの発言を表示
-            chatBox.innerHTML += `<p><b>あなた:</b> ${text}</p>`;
-            inputField.value = '';
+    <!-- コンテンツ -->
 
-            try {
-                // FastAPI（バックエンド）へPOSTリクエストを送信
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: text })
-                });
-
-                const data = await response.json();
-                
-                // AIからの返答を表示
-                chatBox.innerHTML += `<p><b>AI:</b> ${data.reply}</p>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            } catch (error) {
-                chatBox.innerHTML += `<p style="color: red;">エラーが発生しました。</p>`;
-            }
-        }
-    </script>
+    <!-- フッター -->
+    <footer>
+        <div id="social-icons">
+            <a href="#"><img src="img/shared/twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="img/shared/instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="img/shared/youtube-icon.png" alt="YouTube"></a>
+            <a href="#"><img src="img/shared/facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="img/shared/tiktok-icon.png" alt="TikTok"></a>
+        </div>
+        <!-- リンクメニュー部分にクラスを付与 -->
+        <div class="footer-links">
+            <a href="disease_list.html">病気一覧</a>
+            <a href="contact.html">お問い合わせ</a>
+            <a href="#">利用規約</a>
+        </div>
+        <p class="copyright">&copy;okaki. All Rights Reserved</p>
+    </footer>
 </body>
 </html>

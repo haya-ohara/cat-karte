@@ -1,1 +1,125 @@
 /* 全画面共通css */
+
+/* フォントスタイル */
+html {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 背景 */
+body {
+  margin: 0;
+  background-color: #FFF4E0;
+  padding-top: 100px;
+  background-image: url(../img/shared/背景画像.png);
+  background-size: cover;
+}
+
+/* ヘッダー全体 */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  padding: 0 40px;
+  background-color: #fdecd2;
+}
+
+/* 左側ロゴ */
+.header-logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.header-logo img {
+  height: 80%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* 右側ナビゲーションとイラストのコンテナ */
+.header-nav-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* ナビゲーションメニュー */
+header nav ul {
+  display: flex;
+  gap: 40px;
+  margin: 0 0 13px 0;
+  padding: 0 20px 0px 20px;
+  list-style: none;
+  border-bottom: 1.5px solid #8c6a51;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #8c6a51;
+  font-size: 1.3rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 右端の猫イラスト */
+.nav-cat-img {
+  height: 65px;
+  width: auto;
+  margin-bottom: -5px;
+  position: relative;
+  left: -12.5px;
+  filter: invert(55%) sepia(50%) saturate(6428%) hue-rotate(1deg) brightness(40%) contrast(80%);;
+}
+
+
+/* フッター */
+footer {
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 0;
+  background-color: #3E3E3E;
+  background-image: url(../img/shared/足跡.png);
+  background-size: cover;
+  background-position: -100px 200px;
+}
+
+#social-icons {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+#social-icons img {
+  width: 40px;
+  height: 40px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 40px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.copyright {
+  color: #aaaaaa;
+  font-size: 0.85rem;
+  margin: 0;
+}
