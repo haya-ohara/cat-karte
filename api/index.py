@@ -26,6 +26,13 @@ class ChatRequest(BaseModel):
 async def read_index():
   return FileResponse("index.html")
 
+@app.get("/{page_name}.html")
+async def serve_html_page(page_name: str):
+  file_path = os.path.join(base_dir, f"{page_name}.html")
+  if os.path.exists(file_path):
+    return FileResponse(file_path)
+  raise HTTPException(status_code=404, detail="Page not found")
+
 @app.post("/api/chat")
 async def chat_with_gemini(data: ChatRequest):
   user_message = data.message
