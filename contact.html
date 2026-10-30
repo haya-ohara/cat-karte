@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ねこカルテ - お問い合わせ</title>
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="contact-wrapper">
+        <!-- タイトル -->
+        <h1 class="main-title">お問い合わせ</h1>
+        <p class="sub-title">ねこカルテへのお問い合わせはこちらから！</p>
+        
+        <!-- お問い合わせフォーム -->
+        <form action="#" method="post" class="contact-form">
+
+            <div class="form-group">
+                <label for="name">お名前</label>
+                <div class="input-container">
+                    <input type="text" id="name" name="name" placeholder="例 : おかき" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">メールアドレス</label>
+                <div class="input-container">
+                    <input type="email" id="email" name="email" placeholder="例 : G2520022@ngo.okaki.ac.jp" required>
+                </div>
+            </div>
+
+            <div class="form-group align-top">
+                <label for="message">お問い合わせ内容</span></label>
+                <div class="input-container">
+                    <textarea id="message" name="message" rows="6" placeholder="こちらに詳細をご入力ください" required></textarea>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="submit-btn">送信する</button>
+            </div>
+
+        </form>
+
+        <!-- ACCESS セクション（フォームの下に追加） -->
+        <section class="access-section">
+            <div class="access-title-area">
+                <h2 class="access-en-title">ACCESS</h2>
+                <p class="access-jp-title">アクセス</p>
+            </div>
+
+            <div class="access-content">
+                <!-- 左側：地図 -->
+                <div class="access-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.543477871146!2d136.745678!3d35.415678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60030a5123456789%3A0x123456789abcdef!2z5bKp6Zmi5bKp6Zmi5rGg55S66KW_5Yy66KW_5Z-O5bGL55S677yS5LiB55S677yS77yS!5e0!3m2!1sja!2sjp!4v1234567890" 
+                        width="100%" 
+                        height="250" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <!-- 右側：住所情報 -->
+                <div class="access-info">
+                    <h3 class="shop-name">ねこカルテ</h3>
+                    <p class="postal-code">〒500-8853</p>
+                    <p class="address">岐阜県岐阜市西問屋町11</p>
+                </div>
+            </div>
+
+            <!-- 電話番号エリア -->
+            <div class="phone-section">
+                <h3 class="phone-title">電話番号</h3>
+                <p class="phone-number">TEL : 058-255-2261</p>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
