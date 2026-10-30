@@ -1,1 +1,202 @@
-/* お問い合わせ画面(S05)の専用CSS */
+/* ==========================
+   既存のフォーム設定
+   ========================== */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    color: #8C6F56;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.contact-wrapper {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+}
+
+.sub-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+    margin-bottom: 48px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.form-group.align-top {
+    align-items: flex-start;
+}
+
+.form-group label {
+    width: 180px;
+    text-align: right;
+    white-space: nowrap; 
+}
+
+.input-container {
+    flex: 1;
+}
+
+/* カプセル型の入力欄 */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
+    font-size: 1rem;
+    outline: none;
+}
+
+textarea {
+    border-radius: 20px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #8C6F56;
+}
+
+/* 必須バッジ */
+
+
+/* 送信ボタン（カプセル型・中央寄せ） */
+.btn-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    padding: 14px 50px;
+    background-color: #8C6F56;
+    color: #fff;
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: #705541;
+}
+
+
+/* ==========================
+   ACCESS セクションのスタイル
+   ========================== */
+/* ACCESS セクション */
+.access-section {
+    margin-top: 400px; /* ★ここを大きめ（例: 120px や 150px など）に調整します */
+    border-top: 2px dashed #E5D5C3;
+    padding-top: 80px;  /* 上側のパディングも少し広げるとバランスが良くなります */
+}
+
+.access-title-area {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.access-en-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #8C6F56;
+    margin-bottom: 4px;
+}
+
+.access-jp-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: #8C6F56;
+}
+
+.access-content {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.access-map {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.access-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.shop-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.postal-code,
+.address {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.phone-section {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.phone-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.phone-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* スマホ表示のとき縦並びにする設定 */
+@media (max-width: 600px) {
+    .access-content {
+        flex-direction: column;
+    }
+}
