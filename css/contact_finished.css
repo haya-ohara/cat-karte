@@ -1,0 +1,135 @@
+/* ==========================
+   ページ全体の基準設定（リセット＆中央寄せ）
+   ========================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #8C6F56;
+    background-color: #FFF9ED; /* 背景色（必要に応じて） */
+    padding: 60px 20px;
+    /* body自体のflexは外し、ブロックとして確実に中央に置くため margin: 0 auto を使います */
+    display: block; 
+    min-height: 100vh;
+}
+
+/* ページ全体のカード・コンテンツを包むラッパー */
+.contact-wrapper {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto; /* ←これで完全に真ん中に固定されます */
+    text-align: left; /* 中身のデフォルトは左揃え */
+}
+
+/* ==========================
+   送信完了画面・タイトルの設定
+   ========================== */
+.main-title {
+    text-align: center; /* タイトルは真ん中 */
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #8C6F56;
+    margin-bottom: 20px;
+}
+
+.sub-text {
+    text-align: center; /* サブテキストも真ん中 */
+    font-size: 1rem;
+    color: #8C6F56;
+    margin-bottom: 40px;
+}
+
+.result-title {
+    text-align: center; /* 「お問い合わせ内容」も真ん中 */
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #8C6F56;
+    margin-bottom: 30px;
+}
+
+/* ==========================
+   点線の入力内容リスト
+   ========================== */
+.result-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+    border-bottom: 1px dashed #C5A384;
+}
+
+.result-item:first-child {
+    border-top: 1px dashed #C5A384;
+}
+
+/* 項目名（お名前など） */
+.result-item dt {
+    width: 180px;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #8C6F56;
+    text-align: left;
+    padding-left: 10px;
+}
+
+/* 入力された内容 */
+.result-item dd {
+    flex: 1;
+    font-size: 1rem;
+    color: #8C6F56;
+    line-height: 1.6;
+    word-break: break-all;
+}
+
+/* ==========================
+   戻るボタンのコンテナ（中央配置＆余白）
+   ========================== */
+.btn-container {
+    display: flex;
+    justify-content: center; /* 確実に真ん中に配置 */
+    align-items: center;
+    width: 100%;
+    margin-top: 60px;       /* 下にしっかり空白を開ける */
+}
+
+.home-btn {
+    display: inline-block;
+    padding: 14px 50px;
+    background-color: #8C6F56;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 9999px; /* カプセル型 */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.home-btn:hover {
+    background-color: #705541;
+}
+
+/* ==========================
+   スマホ表示（幅600px以下）
+   ========================== */
+@media (max-width: 600px) {
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    .result-item dt {
+        width: 100%;
+        padding-left: 0;
+        font-weight: bold;
+    }
+}
