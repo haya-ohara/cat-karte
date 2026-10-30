@@ -15,6 +15,7 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 app.mount("/css", StaticFiles(directory=os.path.join(base_dir, "css")), name="css")
 app.mount("/js", StaticFiles(directory=os.path.join(base_dir, "js")), name="js")
 app.mount("/data", StaticFiles(directory=os.path.join(base_dir, "data")), name="data")
+app.mount("/img", StaticFiles(directory=os.path.join(base_dir, "img")), name="img")
 
 client = genai.Client()
 
