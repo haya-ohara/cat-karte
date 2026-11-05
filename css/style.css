@@ -82,7 +82,6 @@ header nav ul li a {
 /* フッター */
 footer {
   width: 100vw;
-  position: absolute;
   bottom: 0;
   display: flex;
   flex-direction: column;
