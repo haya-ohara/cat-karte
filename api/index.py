@@ -1,13 +1,12 @@
 import os
 from fastapi import FastAPI, Form, HTTPException, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from google import genai
 from pydantic import BaseModel
 
 template = "あなたは獣医師AIです。これから猫の病気の診断をしてもらいます。以下の飼い主からの相談をもとに質問内容を考え診断を行ってください。"
-
 
 app = FastAPI()
 
@@ -25,18 +24,22 @@ client = genai.Client()
 class ChatRequest(BaseModel):
   message: str
 
+# トップページ
 @app.get("/", response_class=HTMLResponse)
 async def read_index(request: Request):
-  return templates.TemplateResponse("index.html", {"request": request})
+  # 【修正】第1引数に request を渡す
+  return templates.TemplateResponse(request, "index.html")
 
-@app.get("/{page_name}.html")
-async def serve_html_page(page_name: str):
+# 各種HTMLページを表示する部分
+@app.get("/{page_name}.html", response_class=HTMLResponse)
+async def serve_html_page(request: Request, page_name: str):
   file_path = os.path.join(base_dir, f"{page_name}.html")
   if os.path.exists(file_path):
-    return FileResponse(file_path)
+    # 【修正】第1引数に request を渡す
+    return templates.TemplateResponse(request, f"{page_name}.html")
   raise HTTPException(status_code=404, detail="Page not found")
 
-
+# お問い合わせ送信完了ページ
 @app.post("/contact.html", response_class=HTMLResponse)
 async def contact_submit(
     request: Request,
@@ -44,11 +47,11 @@ async def contact_submit(
     email: str = Form(...),
     message: str = Form(...)
 ):
-    # 受け取ったデータを辞書型にして、HTMLに埋め込んで返す
+    # 【修正】第1引数に request を渡し、辞書には変数をそのまま入れる
     return templates.TemplateResponse(
+        request,
         "contact_finished.html",
         {
-            "request": request,
             "name": name,
             "email": email,
             "message": message
