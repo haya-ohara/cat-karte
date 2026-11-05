@@ -5,8 +5,27 @@
     <title>ねこカルテ - お問い合わせ</title>
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/shared/アイコン.png" alt="ねこカルテ">
+        </a>
+
+        <div class="header-nav-container">
+            <nav>
+                <ul>
+                    <li><a href="disease_list.html">病気一覧</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <img src="img/shared/ネコ線.png" alt="" class="nav-cat-img">
+        </div>
+    </header>
 
     <div class="contact-wrapper">
         <!-- タイトル -->
@@ -31,7 +50,7 @@
             </div>
 
             <div class="form-group align-top">
-                <label for="message">お問い合わせ内容</span></label>
+                <label for="message">お問い合わせ内容</label>
                 <div class="input-container">
                     <textarea id="message" name="message" rows="6" placeholder="こちらに詳細をご入力ください" required></textarea>
                 </div>
@@ -80,6 +99,23 @@
         </section>
 
     </div>
+
+    <footer>
+        <div id="social-icons">
+            <a href="#"><img src="img/shared/twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="img/shared/instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="img/shared/youtube-icon.png" alt="YouTube"></a>
+            <a href="#"><img src="img/shared/facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="img/shared/tiktok-icon.png" alt="TikTok"></a>
+        </div>
+        <!-- リンクメニュー部分にクラスを付与 -->
+        <div class="footer-links">
+            <a href="disease_list.html">病気一覧</a>
+            <a href="contact.html">お問い合わせ</a>
+            <a href="#">利用規約</a>
+        </div>
+        <p class="copyright">&copy;okaki. All Rights Reserved</p>
+    </footer>
 
 </body>
 </html>
