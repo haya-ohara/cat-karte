@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ねこカルテ - 病気一覧</title>
+    <link rel="stylesheet" href="css/disease_list.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- フォント読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/shared/アイコン.png" alt="ねこカルテ">
+        </a>
+
+        <div class="header-nav-container">
+            <nav>
+                <ul>
+                    <li><a href="disease_list.html">病気一覧</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <img src="img/shared/ネコ線.png" alt="" class="nav-cat-img">
+        </div>
+    </header>
+
+    <!-- コンテンツ -->
+    <main class="main-content">
+        <!-- 検索窓 -->
+        <div class="search-container">
+            <input type="text" id="search-box" placeholder="ここから病名を検索できます">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <!-- 病気リスト表示エリア -->
+        <div id="disease-list" class="disease-list">
+            <!-- JavaScriptでここにデータが動的に挿入されます -->
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div id="social-icons">
+            <a href="#"><img src="img/shared/twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="img/shared/instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="img/shared/youtube-icon.png" alt="YouTube"></a>
+            <a href="#"><img src="img/shared/facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="img/shared/tiktok-icon.png" alt="TikTok"></a>
+        </div>
+        <div class="footer-links">
+            <a href="disease_list.html">病気一覧</a>
+            <a href="contact.html">お問い合わせ</a>
+            <a href="#">利用規約</a>
+        </div>
+        <p class="copyright">&copy;okaki. All Rights Reserved</p>
+    </footer>
+
+    <!-- JavaScriptの読み込み -->
+    <script src="js/disease.js"></script>
+</body>
+</html>
