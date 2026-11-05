@@ -10,9 +10,9 @@
 body {
     color: #8C6F56;
     background-color: #FFF9ED; /* 背景色（必要に応じて） */
-    padding: 60px 20px;
+    /* padding: 60px 20px; */
     /* body自体のflexは外し、ブロックとして確実に中央に置くため margin: 0 auto を使います */
-    display: block; 
+    /* display: block;  */
     min-height: 100vh;
 }
 
@@ -99,7 +99,7 @@ body {
     justify-content: center; /* 確実に真ん中に配置 */
     align-items: center;
     width: 100%;
-    margin-top: 60px;       /* 下にしっかり空白を開ける */
+    margin-top: 70px;       /* 下にしっかり空白を開ける */
 }
 
 .home-btn {
