@@ -1,7 +1,8 @@
 import os
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Form, HTTPException, Request
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from google import genai
 from pydantic import BaseModel
 
@@ -17,14 +18,16 @@ app.mount("/js", StaticFiles(directory=os.path.join(base_dir, "js")), name="js")
 app.mount("/data", StaticFiles(directory=os.path.join(base_dir, "data")), name="data")
 app.mount("/img", StaticFiles(directory=os.path.join(base_dir, "img")), name="img")
 
+templates = Jinja2Templates(directory=base_dir)
+
 client = genai.Client()
 
 class ChatRequest(BaseModel):
   message: str
 
-@app.get("/")
-async def read_index():
-  return FileResponse("index.html")
+@app.get("/", response_class=HTMLResponse)
+async def read_index(request: Request):
+  return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/{page_name}.html")
 async def serve_html_page(page_name: str):
@@ -32,6 +35,25 @@ async def serve_html_page(page_name: str):
   if os.path.exists(file_path):
     return FileResponse(file_path)
   raise HTTPException(status_code=404, detail="Page not found")
+
+
+@app.post("/contact.html", response_class=HTMLResponse)
+async def contact_submit(
+    request: Request,
+    name: str = Form(...),
+    email: str = Form(...),
+    message: str = Form(...)
+):
+    # 受け取ったデータを辞書型にして、HTMLに埋め込んで返す
+    return templates.TemplateResponse(
+        "contact_finished.html",
+        {
+            "request": request,
+            "name": name,
+            "email": email,
+            "message": message
+        }
+    )
 
 @app.post("/api/chat")
 async def chat_with_gemini(data: ChatRequest):
