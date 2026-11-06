@@ -9,11 +9,14 @@ html {
 
 /* 背景 */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 100px);
   margin: 0;
   background-color: #FFF4E0;
   padding-top: 100px;
   background-image: url(../img/shared/背景画像.png);
-  background-size: cover;
+  background-size: 1000px;
 }
 
 /* ヘッダー全体 */
@@ -78,11 +81,15 @@ header nav ul li a {
   filter: invert(55%) sepia(50%) saturate(6428%) hue-rotate(1deg) brightness(40%) contrast(80%);;
 }
 
+/* メイン */
+main{
+  flex: 1;
+}
+
 
 /* フッター */
 footer {
-  width: 100vw;
-  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
