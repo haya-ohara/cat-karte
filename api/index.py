@@ -6,7 +6,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from google import genai
 from pydantic import BaseModel
-from typing import List, Optional
 
 app = FastAPI()
 
