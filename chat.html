@@ -3,14 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>猫の健康相談AI</title>
+    <link rel="stylesheet" href="./css/chat.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/shared/アイコン.png" alt="ねこカルテ">
+        </a>
+
+        <div class="header-nav-container">
+            <nav>
+                <ul>
+                    <li><a href="disease_list.html">病気一覧</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <img src="img/shared/ネコ線.png" alt="" class="nav-cat-img">
+        </div>
+    </header>
     <h1>🐱 猫の健康相談チャット</h1>
-    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px;"></div>
+
+    <!-- 1. チャット会話エリア -->
+    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px;">
+        <div class="message ai-message">
+            こんにちは！猫ちゃんの健康相談AIです。🐾<br>
+            「食欲がない」「いつもより元気がない」など、気になる症状を下の入力欄やボタンから教えてくださいね。
+        </div>
+    </div>
     
-    <input type="text" id="user-input" placeholder="症状を入力してください..." style="width: 70%;">
-    <button onclick="sendMessage()">送信</button>
+    <!-- 2. クイック選択肢（入力欄の直上に配置） -->
+    <div id="chat-container">
+        <div class="options-container">
+            <button class="option-btn" onclick="selectOption('食欲がない')">↳ 食欲がない</button>
+            <button class="option-btn" onclick="selectOption('元気がない')">↳ 元気がない</button>
+        </div>
+    </div>
+
+    <!-- 3. 【改良】フォーム形式に変更（Enter送信とsubmitボタン化） -->
+    <form onsubmit="event.preventDefault(); sendMessage();" class="chat-form">
+        <input type="text" id="user-input" placeholder="症状を入力してください..." style="width: 70%;">
+        <button type="submit">送信</button>
+    </form>
 
     <script src="js/google-genai.js"></script>
+
+    <!-- 選択ボタン動作、およびLoading（ロード中）をコントロールするスクリプト -->
+    <script>
+        function selectOption(text) {
+            document.getElementById('user-input').value = text;
+        }
+
+        // ロード中にかわいいポコポコアニメーションを画面に出す関数
+        function showLoading() {
+            const chatBox = document.getElementById('chat-box');
+            
+            if (document.getElementById('ai-loading')) return;
+
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'ai-loading';
+            loadingDiv.className = 'message ai-message loading-box';
+            loadingDiv.innerHTML = '<span></span><span></span><span></span>';
+            
+            chatBox.appendChild(loadingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // ロード画面を消去する関数
+        function removeLoading() {
+            const loadingDiv = document.getElementById('ai-loading');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+    </script>
 </body>
 </html>
