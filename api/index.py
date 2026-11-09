@@ -40,7 +40,7 @@ async def serve_html_page(request: Request, page_name: str):
   raise HTTPException(status_code=404, detail="Page not found")
 
 # お問い合わせ送信完了ページ
-@app.post("/contact.html", response_class=HTMLResponse)
+@app.post("/contact_finished.html", response_class=HTMLResponse)
 async def contact_submit(
     request: Request,
     name: str = Form(...),
