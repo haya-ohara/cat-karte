@@ -1,0 +1,73 @@
+Animal_Type,Breed,Age,Gender,Weight,Symptom_1,Symptom_2,Symptom_3,Symptom_4,Duration,Appetite_Loss,Vomiting,Diarrhea,Coughing,Labored_Breathing,Lameness,Skin_Lesions,Nasal_Discharge,Eye_Discharge,Body_Temperature,Heart_Rate,Disease_Prediction
+Cat,Siamese,2,Female,4.5,Coughing,Sneezing,Eye Discharge,Nasal Discharge,1 week,No,No,No,Yes,No,No,No,Yes,Yes,38.9°C,150,Upper Respiratory Infection
+Cat,Persian,5,Male,3.8,Lethargy,Appetite Loss,Skin Lesions,No,2 weeks,Yes,No,No,No,No,No,Yes,No,No,38.7°C,160,Fungal Infection
+Cat,Maine Coon,2,Male,6,Vomiting,Appetite Loss,Lethargy,Diarrhea,4 days,Yes,Yes,Yes,No,No,No,No,No,No,39.1°C,140,Intestinal Parasites
+Cat,Siamese,3,Female,5,Lethargy,Eye Discharge,Vomiting,Fever,5 days,Yes,Yes,No,No,No,No,Yes,No,No,39.0°C,130,Panleukopenia
+Cat,Bengal,1,Male,4.2,Vomiting,Diarrhea,Lethargy,Appetite Loss,3 days,Yes,Yes,Yes,No,No,No,No,No,No,38.8°C,140,Panleukopenia
+Cat,Ragdoll,3,Male,5,Skin Lesions,Appetite Loss,Lethargy,Vomiting,10 days,Yes,Yes,No,No,No,No,Yes,No,No,38.6°C,155,Ringworm
+Cat,British Shorthair,5,Female,4.8,Lethargy,Eye Discharge,Appetite Loss,Nasal Discharge,1 week,No,No,No,Yes,Yes,No,No,Yes,Yes,39.0°C,150,Upper Respiratory Infection
+Cat,Bengal,3,Male,5.5,Lethargy,Vomiting,Diarrhea,Dehydration,3 days,Yes,Yes,Yes,No,No,No,No,No,No,39.3°C,140,Panleukopenia
+Cat,Russian Blue,2,Female,4.5,Coughing,Nasal Discharge,Eye Discharge,Sneezing,5 days,No,No,No,Yes,No,No,No,Yes,Yes,38.8°C,150,Feline Herpesvirus
+Cat,Ragdoll,6,Male,6,Appetite Loss,Weight Loss,Vomiting,Lethargy,2 weeks,Yes,Yes,No,No,No,No,Yes,No,No,39.0°C,160,Feline Leukemia
+Cat,Maine Coon,6,Female,7.5,Appetite Loss,Vomiting,Diarrhea,Skin Lesions,4 days,Yes,Yes,Yes,No,No,Yes,No,No,No,38.9°C,145,Feline Infectious Peritonitis
+Cat,Persian,8,Male,4.6,Appetite Loss,Vomiting,Eye Discharge,Lethargy,2 days,No,Yes,No,No,No,No,Yes,No,Yes,39.0°C,140,Conjunctivitis
+Cat,Sphynx,4,Female,3.2,Eye Discharge,Nasal Discharge,Appetite Loss,Lethargy,1 week,No,No,No,Yes,Yes,No,No,Yes,Yes,39.3°C,150,Feline Upper Respiratory Infection
+Cat,British Shorthair,3,Male,5.5,Appetite Loss,Coughing,Nasal Discharge,Eye Discharge,4 days,Yes,No,No,Yes,Yes,No,No,No,Yes,38.7°C,145,Feline Upper Respiratory Infection
+Cat,Siamese,2,Female,4,Sneezing,Eye Discharge,Appetite Loss,Lethargy,2 days,Yes,No,Yes,No,Yes,No,No,No,Yes,39.0°C,135,Feline Herpesvirus
+Cat,Abyssinian,5,Female,4.5,Vomiting,Diarrhea,Loss of Appetite,Dehydration,3 days,No,Yes,No,Yes,No,Yes,No,Yes,No,38.5°C,142,Pancreatitis
+Cat,Ragdoll,4,Female,5,Eye Discharge,Nasal Discharge,Coughing,Lethargy,6 days,Yes,No,No,Yes,No,Yes,Yes,No,No,38.6°C,148,Feline Calicivirus
+Cat,Devon Rex,6,Male,4.2,Vomiting,Appetite Loss,Lethargy,Weight Loss,9 days,Yes,No,Yes,No,Yes,No,Yes,No,No,38.9°C,146,Inflammatory Bowel Disease
+Cat,Sphynx,5,Female,3,Vomiting,Appetite Loss,Diarrhea,Weight Loss,6 days,Yes,Yes,No,No,Yes,No,Yes,No,No,38.7°C,143,Gastroenteritis
+Cat,Maine Coon,9,Male,6.5,Lethargy,Appetite Loss,Weight Loss,Dehydration,8 days,Yes,Yes,Yes,No,No,No,Yes,Yes,No,39.0°C,140,Feline Renal Disease
+Cat,Persian,8,Female,5,Coughing,Nasal Discharge,Eye Discharge,Loss of Appetite,4 days,Yes,No,Yes,No,Yes,No,Yes,No,No,38.9°C,147,Feline Viral Rhinotracheitis
+Cat,Scottish Fold,4,Male,4.8,Sneezing,Eye Discharge,Appetite Loss,Lethargy,5 days,Yes,No,No,Yes,Yes,No,Yes,No,Yes,38.7°C,137,Feline Herpesvirus
+Cat,Bengal,3,Female,4.2,Lethargy,Vomiting,Diarrhea,Dehydration,6 days,Yes,No,Yes,Yes,No,Yes,No,No,No,39.1°C,145,Feline Panleukopenia
+Cat,Siberian,2,Male,5.5,Coughing,Sneezing,Nasal Discharge,Eye Discharge,4 days,Yes,No,Yes,No,No,Yes,No,Yes,No,38.6°C,144,Feline Calicivirus
+Cat,American Curl,5,Male,3.7,Vomiting,Diarrhea,Dehydration,Weight Loss,3 days,Yes,Yes,No,No,Yes,Yes,No,No,No,38.8°C,148,Pancreatitis
+Cat,Manx,4,Female,3.3,Eye Discharge,Nasal Discharge,Sneezing,Coughing,6 days,Yes,No,No,Yes,No,Yes,Yes,No,No,38.5°C,138,Feline Herpesvirus
+Cat,Bombay,6,Male,4,Lethargy,Vomiting,Loss of Appetite,Weight Loss,5 days,Yes,No,No,Yes,Yes,No,Yes,No,No,38.9°C,149,Hyperthyroidism
+Cat,British Shorthair,7,Female,4.4,Nasal Discharge,Eye Discharge,Sneezing,Lethargy,4 days,Yes,No,No,Yes,No,Yes,Yes,No,No,38.6°C,142,Upper Respiratory Infection
+Cat,Abyssinian,4,Male,4.5,Eye Discharge,Lethargy,Nasal Discharge,Sneezing,5 days,Yes,No,No,Yes,Yes,No,No,Yes,No,38.8°C,140,Feline Calicivirus
+Cat,Persian,7,Female,4.1,Sneezing,Nasal Discharge,Eye Discharge,Lethargy,4 days,Yes,No,No,Yes,Yes,No,Yes,No,Yes,38.9°C,142,Feline Upper Respiratory Infection
+Cat,Siamese,6,Male,4.2,Coughing,Sneezing,Eye Discharge,Lethargy,4 days,Yes,No,No,Yes,No,Yes,Yes,No,Yes,38.7°C,140,Feline Calicivirus
+Cat,Burmese,8,Female,4.5,Eye Discharge,Nasal Discharge,Sneezing,Lethargy,6 days,Yes,No,Yes,Yes,No,Yes,No,No,Yes,38.6°C,139,Feline Viral Rhinotracheitis
+Cat,Maine Coon,5,Male,5.2,Nasal Discharge,Eye Discharge,Sneezing,Lethargy,3 days,Yes,Yes,No,Yes,No,No,No,Yes,No,38.8°C,140,Feline Respiratory Disease Complex
+Cat,Scottish Fold,4,Male,4.3,Nasal Discharge,Eye Discharge,Sneezing,Lethargy,3 days,Yes,No,Yes,No,No,Yes,No,Yes,Yes,38.7°C,143,Feline Rhinotracheitis
+Cat,Russian Blue,5,Female,4.7,Eye Discharge,Nasal Discharge,Sneezing,Lethargy,5 days,Yes,Yes,No,No,No,Yes,No,Yes,Yes,38.6°C,145,Feline Respiratory Infection
+Cat,Sphynx,4,Male,5.2,Vomiting,Diarrhea,Loss of Appetite,Lethargy,5 days,Yes,Yes,Yes,No,Yes,Yes,No,No,No,39.1°C,148,Feline Infectious Peritonitis
+Cat,Bengal,3,Male,5.5,Nasal Discharge,Coughing,Sneezing,Lethargy,5 days,Yes,Yes,No,Yes,No,Yes,No,No,Yes,38.9°C,140,Feline Calicivirus
+Cat,Siamese,4,Female,4.2,Nasal Discharge,Lethargy,Loss of Appetite,Fever,6 days,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,38.8°C,145,Feline Leukemia Virus
+Cat,Persian,5,Male,5,Eye Discharge,Nasal Discharge,Sneezing,Lethargy,4 days,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,38.9°C,148,Feline Herpesvirus
+Cat,Scottish Fold,4,Male,4.8,Coughing,Loss of Appetite,Fever,Lethargy,5 days,Yes,No,Yes,No,No,Yes,No,Yes,Yes,38.8°C,147,Feline Chlamydia
+Cat,Maine Coon,3,Male,7.5,Lethargy,Vomiting,Loss of Appetite,Diarrhea,4 days,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,39.1°C,148,Feline Infectious Peritonitis
+Cat,Russian Blue,3,Female,4.8,Nasal Discharge,Coughing,Loss of Appetite,Lethargy,4 days,Yes,No,Yes,No,Yes,No,Yes,Yes,No,38.9°C,145,Feline Leukemia Virus
+Cat,Burmese,4,Male,4.3,Nasal Discharge,Coughing,Loss of Appetite,Lethargy,3 days,Yes,No,No,Yes,No,Yes,Yes,No,Yes,39.0°C,150,Feline Calicivirus
+Cat,Siamese,6,Male,5.5,Coughing,Loss of Appetite,Lethargy,Fever,4 days,Yes,No,No,Yes,No,No,Yes,Yes,No,39.0°C,149,Feline Infectious Peritonitis
+Cat,Bengal,3,Male,5,Nasal Discharge,Coughing,Loss of Appetite,Fever,5 days,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,39.0°C,140,Feline Calicivirus
+Cat,Scottish Fold,5,Female,4.7,Nasal Discharge,Coughing,Loss of Appetite,Fever,6 days,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,38.9°C,150,Feline Infectious Peritonitis
+Cat,Abyssinian,3,Male,4.6,Nasal Discharge,Coughing,Loss of Appetite,Fever,4 days,Yes,No,Yes,No,Yes,Yes,Yes,No,No,39.0°C,142,Feline Leukemia Virus
+Cat,Persian,6,Female,4.2,Nasal Discharge,Loss of Appetite,Lethargy,Fever,5 days,Yes,Yes,No,Yes,No,No,Yes,Yes,No,39.1°C,148,Feline Coronavirus
+Cat,Maine Coon,5,Male,8.5,Coughing,Loss of Appetite,Lethargy,Fever,3 days,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,39.1°C,145,Feline Upper Respiratory Infection
+Cat,Sphynx,3,Female,5,Nasal Discharge,Loss of Appetite,Coughing,Fever,4 days,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,39.0°C,155,Feline Rhinotracheitis
+Cat,Russian Blue,2,Male,6,Nasal Discharge,Loss of Appetite,Coughing,Fever,3 days,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,39.0°C,145,Feline Asthma
+Cat,Bengal,3,Female,6,Nasal Discharge,Loss of Appetite,Coughing,Fever,4 days,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,39.1°C,145,Feline Herpesvirus
+Cat,Siberian,7,Male,10.2,Nasal Discharge,Loss of Appetite,Coughing,Fever,5 days,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,39.0°C,135,Feline Asthma
+Cat,Abyssinian,5,Male,4.5,Coughing,Loss of Appetite,Nasal Discharge,Fever,3 days,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,39.0°C,140,Feline Respiratory Disease Complex
+Cat,Maine Coon,6,Female,10,Coughing,Loss of Appetite,Nasal Discharge,Fever,4 days,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,39.1°C,145,Feline Leukemia
+Cat,Persian,4,Female,7,Vomiting,Loss of Appetite,Lethargy,Fever,5 days,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,39.1°C,125,Feline Infectious Peritonitis
+Cat,Bengal,3,Female,8,Nasal Discharge,Loss of Appetite,Coughing,Fever,4 days,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,39.0°C,145,Feline Panleukopenia
+Cat,Siberian,5,Male,11,Coughing,Loss of Appetite,Nasal Discharge,Fever,4 days,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,39.2°C,140,Feline Leukemia Virus
+Cat,Burmese,4,Female,7.5,Coughing,Loss of Appetite,Nasal Discharge,Fever,5 days,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,39.0°C,140,Feline Chlamydiosis
+Cat,Maine Coon,4,Male,10,Vomiting,Loss of Appetite,Lethargy,Fever,5 days,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,39.0°C,140,Feline Leukemia Virus
+Cat,Siamese,3,Female,7,Coughing,Loss of Appetite,Nasal Discharge,Fever,3 days,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,39.0°C,140,Feline Infectious Peritonitis
+Cat,Bengal,4,Male,10,Vomiting,Loss of Appetite,Lethargy,Fever,4 days,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,39.2°C,145,Feline Panleukopenia
+Cat,Abyssinian,2,Female,6,Coughing,Loss of Appetite,Nasal Discharge,Fever,4 days,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,39.1°C,140,Feline Infectious Peritonitis
+Cat,Ragdoll,5,Male,8,Coughing,Loss of Appetite,Nasal Discharge,Fever,4 days,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,39.2°C,145,Feline Leukemia Virus
+Cat,Bengal,4,Male,7,Coughing,Loss of Appetite,Nasal Discharge,Fever,5 days,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,39.1°C,135,Feline Immunodeficiency Virus
+Cat,Maine Coon,6,Male,9,Coughing,Loss of Appetite,Nasal Discharge,Fever,5 days,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,39.4°C,140,Feline Herpesvirus
+Cat,Persian,4,Female,7,Coughing,Loss of Appetite,Nasal Discharge,Fever,5 days,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,39.0°C,130,Feline Asthma
+Cat,Maine Coon,5,Male,8,Coughing,Loss of Appetite,Nasal Discharge,Fever,5 days,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,39.0°C,135,Feline Panleukopenia Virus
+Cat,Persian,3,Female,5,Coughing,Sneezing,Nasal Discharge,Fever,4 days,Yes,Yes,No,Yes,No,No,No,Yes,No,39.1°C,110,Feline Calicivirus
+Cat,Siamese,2,Female,4.5,Coughing,Sneezing,Eye Discharge,Nasal Discharge,1 week,No,No,No,Yes,No,No,No,Yes,Yes,38.9°C,150,Upper Respiratory Infection
+Cat,Persian,5,Male,3.8,Lethargy,Appetite Loss,Skin Lesions,No,2 weeks,Yes,No,No,No,No,No,Yes,No,No,38.7°C,160,Fungal Infection
+Cat,Maine Coon,2,Male,6,Vomiting,Appetite Loss,Lethargy,Diarrhea,4 days,Yes,Yes,Yes,No,No,No,No,No,No,39.1°C,140,Intestinal Parasites
