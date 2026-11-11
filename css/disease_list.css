@@ -96,3 +96,144 @@
 .disease-content strong {
     color: #8c6a51;
 }
+
+
+
+
+/* ==================================
+   ヘッダー修正版・スマホ専用
+================================== */
+
+@media screen and (max-width: 600px) {
+
+    /* ヘッダー全体を2段構成に */
+    header {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        height: auto !important;
+        min-height: 0 !important;
+        padding: 12px 14px !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+    }
+
+    /* ロゴ */
+    .header-logo {
+        display: block !important;
+        position: static !important;
+        width: 170px !important;
+        max-width: 55% !important;
+        min-width: 0 !important;
+        margin: 0 auto !important;
+        flex-shrink: 0 !important;
+    }
+
+    .header-logo img {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* ナビゲーションと猫 */
+    .header-nav-container {
+        display: flex !important;
+        position: static !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 16px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+    }
+
+    /* ナビ */
+    .header-nav-container nav {
+        display: block !important;
+        position: static !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .header-nav-container nav ul {
+        display: flex !important;
+        position: static !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 20px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+
+    .header-nav-container nav li {
+        margin: 0 !important;
+        padding: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .header-nav-container nav a {
+        font-size: 12px !important;
+        white-space: nowrap !important;
+    }
+
+    /* 猫のイラスト */
+    .nav-cat-img {
+        display: block !important;
+        position: static !important;
+        width: 42px !important;
+        max-width: 12vw !important;
+        height: auto !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* 小さいスマホ */
+@media screen and (max-width: 380px) {
+
+    .header-logo {
+        width: 150px !important;
+    }
+
+    .header-nav-container {
+        gap: 10px !important;
+    }
+
+    .header-nav-container nav ul {
+        gap: 14px !important;
+    }
+
+    .header-nav-container nav a {
+        font-size: 11px !important;
+    }
+
+    .nav-cat-img {
+        width: 34px !important;
+    }
+}
+
+
+
+/* スマホ版：ヘッダー上部の余白を除去 */
+@media screen and (max-width: 600px) {
+
+    body {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    header {
+        margin-top: 0 !important;
+        padding-top: 5px !important;
+        top: 0 !important;
+        transform: none !important;
+    }
+
+}
