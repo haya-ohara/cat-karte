@@ -2,16 +2,18 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff4e2">
     <title>猫の健康相談AI</title>
-    <link rel="stylesheet" href="./css/chat.css">
-    <link rel="stylesheet" href="css/style.css">
 
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+    <!-- ヘッダー -->
     <header>
         <a href="index.html" class="header-logo">
             <img src="img/shared/アイコン.png" alt="ねこカルテ">
@@ -27,60 +29,54 @@
             <img src="img/shared/ネコ線.png" alt="" class="nav-cat-img">
         </div>
     </header>
-    <h1>🐱 猫の健康相談チャット</h1>
 
-    <!-- 1. チャット会話エリア -->
-    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px;">
-        <div class="message ai-message">
-            こんにちは！猫ちゃんの健康相談AIです。🐾<br>
-            「食欲がない」「いつもより元気がない」など、気になる症状を下の入力欄やボタンから教えてくださいね。
-        </div>
-    </div>
-    
-    <!-- 2. クイック選択肢（入力欄の直上に配置） -->
-    <div id="chat-container">
-        <div class="options-container">
-            <button class="option-btn" onclick="selectOption('食欲がない')">↳ 食欲がない</button>
-            <button class="option-btn" onclick="selectOption('元気がない')">↳ 元気がない</button>
-        </div>
-    </div>
+    <main class="chat-page">
+        <nav class="progress" aria-label="診断の進行状況">
+            <div class="progress__line" aria-hidden="true"></div>
+            <div class="progress__step is-current" data-step="1">
+                <span class="progress__dot"></span>
+                <span class="progress__label">診断内容の把握</span>
+            </div>
+            <div class="progress__step" data-step="2">
+                <span class="progress__dot"></span>
+                <span class="progress__label">詳しくご相談</span>
+            </div>
+            <div class="progress__step" data-step="3">
+                <span class="progress__dot"></span>
+                <span class="progress__label">結果</span>
+            </div>
+        </nav>
 
-    <!-- 3. 【改良】フォーム形式に変更（Enter送信とsubmitボタン化） -->
-    <form onsubmit="event.preventDefault(); sendMessage();" class="chat-form">
-        <input type="text" id="user-input" placeholder="症状を入力してください..." style="width: 70%;">
-        <button type="submit">送信</button>
-    </form>
+        <section id="chat-box" class="chat-box" aria-live="polite" aria-label="チャット">
+            <div class="message message--ai">今日はどうされましたか？</div>
+        </section>
 
-    <script src="js/google-genai.js"></script>
+        <section class="chat-controls" aria-label="メッセージ入力">
+            <div id="options-container" class="options-container">
+                <button class="option-btn" type="button" data-option="食欲がない">↳ 食欲がない</button>
+                <button class="option-btn" type="button" data-option="元気がない">↳ 元気がない</button>
+            </div>
 
-    <!-- 選択ボタン動作、およびLoading（ロード中）をコントロールするスクリプト -->
-    <script>
-        function selectOption(text) {
-            document.getElementById('user-input').value = text;
-        }
+            <form id="chat-form" class="chat-form">
+                <label class="visually-hidden" for="user-input">相談内容</label>
+                <input
+                    type="text"
+                    id="user-input"
+                    name="message"
+                    placeholder="お気軽にご相談ください"
+                    autocomplete="off"
+                    maxlength="500"
+                    required
+                >
+                <button class="send-btn" type="submit" aria-label="送信">
+                    <!-- <span aria-hidden="true">🐾</span> -->
+                    <img src="img/chat/chat-send-icon.png">
+                </button>
+            </form>
+            <p class="chat-note">これはあくまでAIによる判断です。断定できるものではありません。</p>
+        </section>
+    </main>
 
-        // ロード中にかわいいポコポコアニメーションを画面に出す関数
-        function showLoading() {
-            const chatBox = document.getElementById('chat-box');
-            
-            if (document.getElementById('ai-loading')) return;
-
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = 'ai-loading';
-            loadingDiv.className = 'message ai-message loading-box';
-            loadingDiv.innerHTML = '<span></span><span></span><span></span>';
-            
-            chatBox.appendChild(loadingDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        // ロード画面を消去する関数
-        function removeLoading() {
-            const loadingDiv = document.getElementById('ai-loading');
-            if (loadingDiv) {
-                loadingDiv.remove();
-            }
-        }
-    </script>
+    <script src="js/chat.js" defer></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 fastapi
-uvicorn
-google-genai
-pydantic
 jinja2
 python-multipart
+google-genai
+pydantic
