@@ -158,7 +158,7 @@ async def chat_with_gemini(data: ChatRequest):
 
     try:
         client = get_genai_client()
-        model_name = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+        model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
 
         response = client.models.generate_content(
             model=model_name,
