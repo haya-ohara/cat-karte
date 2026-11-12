@@ -30,52 +30,213 @@
         </div>
     </header>
 
+    <!-- ================================= -->
+    <!-- 事前情報フォーム -->
+    <!-- ================================= -->
     <main class="chat-page">
-        <nav class="progress" aria-label="診断の進行状況">
-            <div class="progress__line" aria-hidden="true"></div>
-            <div class="progress__step is-current" data-step="1">
-                <span class="progress__dot"></span>
-                <span class="progress__label">診断内容の把握</span>
-            </div>
-            <div class="progress__step" data-step="2">
-                <span class="progress__dot"></span>
-                <span class="progress__label">詳しくご相談</span>
-            </div>
-            <div class="progress__step" data-step="3">
-                <span class="progress__dot"></span>
-                <span class="progress__label">結果</span>
-            </div>
-        </nav>
+        <section id="profile-panel" class="profile-panel">
 
-        <section id="chat-box" class="chat-box" aria-live="polite" aria-label="チャット">
-            <div class="message message--ai">今日はどうされましたか？</div>
-        </section>
+            <h2>猫ちゃんの基本情報</h2>
 
-        <section class="chat-controls" aria-label="メッセージ入力">
-            <div id="options-container" class="options-container">
-                <button class="option-btn" type="button" data-option="食欲がない">↳ 食欲がない</button>
-                <button class="option-btn" type="button" data-option="元気がない">↳ 元気がない</button>
-            </div>
+            <p class="profile-description">
+                まずは猫ちゃんについて教えてください。
+                回答をもとに健康相談を進めます。
+            </p>
 
-            <form id="chat-form" class="chat-form">
-                <label class="visually-hidden" for="user-input">相談内容</label>
-                <input
-                    type="text"
-                    id="user-input"
-                    name="message"
-                    placeholder="お気軽にご相談ください"
-                    autocomplete="off"
-                    maxlength="500"
-                    required
-                >
-                <button class="send-btn" type="submit" aria-label="送信">
-                    <!-- <span aria-hidden="true">🐾</span> -->
-                    <img src="img/chat/chat-send-icon.png">
+            <form id="profile-form" class="profile-form">
+
+                <!-- 年齢 -->
+                <div class="profile-field">
+
+                    <label for="cat-age">年齢</label>
+
+                    <input
+                        type="text"
+                        id="cat-age"
+                        name="age"
+                        placeholder="例：3歳、生後6か月"
+                        required
+                        maxlength="30"
+                    >
+
+                </div>
+
+
+                <!-- 猫種 -->
+                <div class="profile-field">
+
+                    <label for="cat-breed">猫種</label>
+
+                    <input
+                        type="text"
+                        id="cat-breed"
+                        name="breed"
+                        placeholder="例：雑種、スコティッシュフォールド"
+                        required
+                        maxlength="50"
+                    >
+
+                </div>
+
+
+                <!-- 元気の有無 -->
+                <div class="profile-field">
+
+                    <label for="cat-energy">元気はありますか？</label>
+
+                    <select id="cat-energy" name="energy" required>
+
+                        <option value="">選択してください</option>
+
+                        <option value="いつも通り元気がある">
+                            いつも通り元気がある
+                        </option>
+
+                        <option value="いつもより元気がない">
+                            いつもより元気がない
+                        </option>
+
+                        <option value="ぐったりしている">
+                            ぐったりしている
+                        </option>
+
+                        <option value="判断できない">
+                            判断できない
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- 食欲の有無 -->
+                <div class="profile-field">
+
+                    <label for="cat-appetite">食欲はありますか？</label>
+
+                    <select id="cat-appetite" name="appetite" required>
+
+                        <option value="">選択してください</option>
+
+                        <option value="いつも通り食べている">
+                            いつも通り食べている
+                        </option>
+
+                        <option value="少し食欲が落ちている">
+                            少し食欲が落ちている
+                        </option>
+
+                        <option value="ほとんど食べない">
+                            ほとんど食べない
+                        </option>
+
+                        <option value="全く食べない">
+                            全く食べない
+                        </option>
+
+                        <option value="判断できない">
+                            判断できない
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button type="submit" class="profile-submit">
+                    回答して健康相談を始める
                 </button>
+
             </form>
-            <p class="chat-note">これはあくまでAIによる判断です。断定できるものではありません。</p>
+
         </section>
+
+
+
+        <!-- ================================= -->
+        <!-- チャット履歴 -->
+        <!-- ================================= -->
+
+        <div id="chat-box" class="chat-box" hidden>
+        </div>
+
     </main>
+
+
+<!-- ================================= -->
+<!-- チャット入力エリア -->
+<!-- ================================= -->
+
+<div class="chat-controls" hidden>
+
+    <div id="options-container" class="options-container">
+    </div>
+
+    <form id="chat-form" class="chat-form">
+
+        <input
+            type="text"
+            id="user-input"
+            placeholder="症状を入力してください..."
+        >
+
+        <button type="submit" class="send-btn">
+            <img src="img/chat/chat-send-icon.png">
+        </button>
+
+    </form>
+
+    <p class="chat-note">
+        ※ AIによる回答は参考情報です。症状によっては早めに動物病院を受診してください。
+    </p>
+
+</div>
+
+<!-- <main class="chat-page">
+    <nav class="progress" aria-label="診断の進行状況">
+        <div class="progress__line" aria-hidden="true"></div>
+        <div class="progress__step is-current" data-step="1">
+            <span class="progress__dot"></span>
+            <span class="progress__label">診断内容の把握</span>
+        </div>
+        <div class="progress__step" data-step="2">
+            <span class="progress__dot"></span>
+            <span class="progress__label">詳しくご相談</span>
+        </div>
+        <div class="progress__step" data-step="3">
+            <span class="progress__dot"></span>
+            <span class="progress__label">結果</span>
+        </div>
+    </nav>
+
+    <section id="chat-box" class="chat-box" aria-live="polite" aria-label="チャット">
+        <div class="message message--ai">今日はどうされましたか？</div>
+    </section>
+
+    <section class="chat-controls" aria-label="メッセージ入力">
+        <div id="options-container" class="options-container">
+            <button class="option-btn" type="button" data-option="食欲がない">↳ 食欲がない</button>
+            <button class="option-btn" type="button" data-option="元気がない">↳ 元気がない</button>
+        </div>
+
+        <form id="chat-form" class="chat-form">
+            <label class="visually-hidden" for="user-input">相談内容</label>
+            <input
+                type="text"
+                id="user-input"
+                name="message"
+                placeholder="お気軽にご相談ください"
+                autocomplete="off"
+                maxlength="500"
+                required
+            >
+            <button class="send-btn" type="submit" aria-label="送信">
+                <img src="img/chat/chat-send-icon.png">
+            </button>
+        </form>
+        <p class="chat-note">これはあくまでAIによる判断です。断定できるものではありません。</p>
+    </section>
+</main> -->
 
     <script src="js/chat.js" defer></script>
 </body>

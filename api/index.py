@@ -112,7 +112,7 @@ SYSTEM_PROMPT = """
 
 
 def get_genai_client() -> genai.Client:
-    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         raise HTTPException(
             status_code=500,
@@ -158,7 +158,7 @@ async def chat_with_gemini(data: ChatRequest):
 
     try:
         client = get_genai_client()
-        model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
+        model_name = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
         response = client.models.generate_content(
             model=model_name,
