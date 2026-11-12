@@ -19,7 +19,7 @@ const chatControls =
     document.querySelector(".chat-controls");
 
 const chatPage =
-    document.querySelector(".chat-page");
+    document.getElementById("chat-main");
 
 const profileForm =
     document.getElementById("profile-form");
@@ -27,14 +27,19 @@ const profileForm =
 const profilePanel =
     document.getElementById("profile-panel");
 
-const sendButton =
-    chatForm.querySelector("button[type='submit']");
-
 const profileSubmit =
     profileForm.querySelector("button[type='submit']");
 
+const sendButton =
+    chatForm.querySelector("button[type='submit']");
 
-// 必要なHTML要素の確認
+const resultScreen =
+    document.getElementById("result-screen");
+
+const resultContent =
+    document.getElementById("result-content");
+
+
 if (
     !chatBox ||
     !chatForm ||
@@ -43,19 +48,16 @@ if (
     !chatControls ||
     !chatPage ||
     !profileForm ||
-    !profilePanel
+    !profilePanel ||
+    !resultScreen ||
+    !resultContent
 ) {
-    throw new Error("チャットに必要なHTML要素が見つかりません。");
+    throw new Error("必要なHTML要素が見つかりません。");
 }
 
 
-// ========================================
-// チャット情報
-// ========================================
-
 const conversationHistory = [];
 
-// フォームで取得した猫の基礎情報
 let catProfile = null;
 
 let turnCount = 0;
@@ -267,15 +269,14 @@ function updateSuggestions(items) {
 
 function updateProgress(finished) {
 
-    document
-        .querySelectorAll(".progress__step")
+    document.querySelectorAll(".progress__step")
         .forEach(step => {
 
             const number = Number(step.dataset.step);
 
             const currentStep = finished
                 ? 3
-                : (hasStartedChat ? 2 : 1);
+                : hasStartedChat ? 2 : 1;
 
             step.classList.toggle(
                 "is-current",
@@ -295,180 +296,397 @@ function updateProgress(finished) {
 // 診断結果を表示
 // ========================================
 
-function appendResult(result) {
+// ========================================
+// 結果画面の生成
+// ========================================
 
-    if (!result || typeof result !== "object") return;
+function showResultScreen(result, fallbackReply = "") {
 
-    const card = document.createElement("section");
+    result = result || {};
 
-    card.className = "result-card";
-    card.setAttribute("aria-label", "診断結果");
-
-
-    // タイトル
-    const title = document.createElement("h2");
-
-    title.textContent = "相談結果";
-
-    card.appendChild(title);
+    resultContent.replaceChildren();
 
 
-    // 危険度
-    if (result.urgency) {
+    // HTML要素を生成する補助関数
+    function createElement(tag, className, text) {
 
-        const urgency = document.createElement("span");
+        const element = document.createElement(tag);
 
-        urgency.className = `urgency urgency--${result.urgency}`;
+        if (className) {
+            element.className = className;
+        }
 
-        urgency.textContent = `危険度：${result.urgency}`;
+        if (text !== undefined && text !== null) {
+            element.textContent = String(text);
+        }
 
-        card.appendChild(urgency);
+        return element;
     }
+
+
+    // ========================================
+    // 病気候補の取得
+    // ========================================
+
+    let diseases = Array.isArray(result.diseases)
+        ? result.diseases
+        : [];
+
+
+    // 第1候補がリストに含まれていない場合
+    if (
+        result.primary_disease &&
+        !diseases.some(d => d.name === result.primary_disease)
+    ) {
+
+        diseases = [
+            {
+                name: result.primary_disease,
+                description: "",
+                treatment: result.primary_treatment || ""
+            },
+            ...diseases
+        ];
+
+    }
+
+
+    // ========================================
+    // 緊急度
+    // ========================================
+
+    const urgency = [
+        "安心",
+        "注意",
+        "危険"
+    ].includes(result.urgency)
+        ? result.urgency
+        : "注意";
+
+
+    // ========================================
+    // 上部の結果カード
+    // ========================================
+
+    const overview = createElement(
+        "section",
+        "result-overview"
+    );
+
+
+    // 緊急度表示
+    const urgencyBox = createElement(
+        "div",
+        "result-urgency"
+    );
+
+    urgencyBox.appendChild(
+        createElement("span", "", "緊急度：")
+    );
+
+    const urgencyDot = createElement(
+        "span",
+        `result-urgency-dot result-urgency--${urgency}`
+    );
+
+    urgencyBox.appendChild(urgencyDot);
+
+    overview.appendChild(urgencyBox);
+
+
+    // 緊急度の凡例
+    const legend = createElement(
+        "div",
+        "urgency-legend"
+    );
+
+    [
+        ["安心", "安心", "#78cf63"],
+        ["注意", "注意", "#ffcb35"],
+        ["危険", "危険", "#ff633e"]
+    ].forEach(([label, text, color]) => {
+
+        const item = createElement(
+            "div",
+            "urgency-legend-item"
+        );
+
+        const dot = createElement(
+            "span",
+            "urgency-legend-dot"
+        );
+
+        dot.style.backgroundColor = color;
+
+        item.appendChild(dot);
+
+        item.appendChild(
+            createElement("span", "", text)
+        );
+
+        legend.appendChild(item);
+
+    });
+
+    overview.appendChild(legend);
 
 
     // 総合メッセージ
-    if (result.urgency_message) {
-
-        const summary = document.createElement("p");
-
-        summary.textContent = result.urgency_message;
-
-        card.appendChild(summary);
-    }
-
-
-    // 聞き取った症状
-    if (
-        Array.isArray(result.symptoms) &&
-        result.symptoms.length
-    ) {
-
-        const heading = document.createElement("h3");
-
-        heading.textContent = "聞き取った症状";
-
-        card.appendChild(heading);
+    overview.appendChild(
+        createElement(
+            "p",
+            "result-message",
+            result.urgency_message ||
+            fallbackReply ||
+            "相談結果をご確認ください。"
+        )
+    );
 
 
-        const list = document.createElement("ul");
+    // ========================================
+    // 症状と病気候補
+    // ========================================
 
-        list.className = "result-list";
+    const columns = createElement(
+        "div",
+        "result-columns"
+    );
 
-        result.symptoms.forEach((symptom) => {
 
-            const item = document.createElement("li");
+    // 症状
+    const symptomSection = createElement(
+        "section",
+        "result-section"
+    );
 
-            item.textContent = String(symptom);
+    symptomSection.appendChild(
+        createElement("h2", "", "症状")
+    );
 
-            list.appendChild(item);
+    const symptomList = createElement(
+        "ul",
+        "result-symptoms"
+    );
+
+    const symptoms = Array.isArray(result.symptoms)
+        ? result.symptoms
+        : [];
+
+    if (symptoms.length) {
+
+        symptoms.forEach(symptom => {
+
+            symptomList.appendChild(
+                createElement("li", "", symptom)
+            );
+
         });
 
-        card.appendChild(list);
+    } else {
+
+        symptomList.appendChild(
+            createElement("li", "", "症状情報がありません。")
+        );
+
     }
 
+    symptomSection.appendChild(symptomList);
 
-    // 第1候補の病気
-    if (result.primary_disease) {
+    columns.appendChild(symptomSection);
 
-        const heading = document.createElement("h3");
 
-        heading.textContent =
-            `考えられる病気：${result.primary_disease}`;
+    // 考えられる病気
+    const diseaseSection = createElement(
+        "section",
+        "result-section"
+    );
 
-        card.appendChild(heading);
+    diseaseSection.appendChild(
+        createElement("h2", "", "考えられる病気")
+    );
+
+    diseases.forEach(disease => {
+
+        const row = createElement(
+            "div",
+            "result-disease-row"
+        );
+
+        const heading = createElement(
+            "div",
+            "result-disease-heading"
+        );
+
+        heading.appendChild(
+            createElement(
+                "strong",
+                "",
+                disease.name || "候補"
+            )
+        );
+
+        const percentage = Number(disease.percentage);
+
+        const hasPercentage =
+            disease.percentage !== undefined &&
+            Number.isFinite(percentage);
+
+        if (hasPercentage) {
+
+            heading.appendChild(
+                createElement(
+                    "span",
+                    "",
+                    `${percentage}%`
+                )
+            );
+
+        }
+
+        row.appendChild(heading);
+
+        if (hasPercentage) {
+
+            const track = createElement(
+                "div",
+                "result-progress-track"
+            );
+
+            const fill = createElement(
+                "div",
+                "result-progress-fill"
+            );
+
+            fill.style.width =
+                `${Math.max(0, Math.min(100, percentage))}%`;
+
+            track.appendChild(fill);
+
+            row.appendChild(track);
+
+        }
+
+        diseaseSection.appendChild(row);
+
+    });
+
+    if (!diseases.length) {
+
+        diseaseSection.appendChild(
+            createElement(
+                "p",
+                "",
+                "病気の候補は提示されていません。"
+            )
+        );
+
     }
 
+    columns.appendChild(diseaseSection);
 
-    // 対処法
-    if (result.primary_treatment) {
+    overview.appendChild(columns);
 
-        const treatment = document.createElement("p");
-
-        treatment.textContent =
-            `対応の目安：${result.primary_treatment}`;
-
-        card.appendChild(treatment);
-    }
+    resultContent.appendChild(overview);
 
 
-    // その他の病気候補
-    if (
-        Array.isArray(result.diseases) &&
-        result.diseases.length
-    ) {
+    // ========================================
+    // 下部の詳細情報カード
+    // ========================================
 
-        const heading = document.createElement("h3");
+    const details = createElement(
+        "section",
+        "result-details"
+    );
 
-        heading.textContent = "その他の可能性";
+    details.appendChild(
+        createElement(
+            "h2",
+            "",
+            "考えられる病気"
+        )
+    );
 
-        card.appendChild(heading);
+    const detailsGrid = createElement(
+        "div",
+        "result-details-grid"
+    );
 
+    diseases.forEach(disease => {
 
-        result.diseases.forEach((disease) => {
+        const item = createElement(
+            "article",
+            "result-detail-item"
+        );
 
-            const item = document.createElement("article");
+        item.appendChild(
+            createElement(
+                "h3",
+                "",
+                disease.name || "病気の候補"
+            )
+        );
 
-            item.className = "disease-item";
+        item.appendChild(
+            createElement(
+                "p",
+                "",
+                `詳細：${disease.description || "詳細情報はありません。"}`
+            )
+        );
 
+        item.appendChild(
+            createElement(
+                "p",
+                "",
+                `対処法：${disease.treatment || "獣医師にご相談ください。"}`
+            )
+        );
 
-            // 病気の名前と割合
-            const name = document.createElement("strong");
+        detailsGrid.appendChild(item);
 
-            const percentage = Number(disease.percentage);
+    });
 
-            name.textContent =
-                `${disease.name ?? "候補"}${
-                    Number.isFinite(percentage)
-                        ? `（${percentage}%）`
-                        : ""
-                }`;
-
-            item.appendChild(name);
-
-
-            // 説明
-            if (disease.description) {
-
-                const description = document.createElement("p");
-
-                description.textContent = disease.description;
-
-                item.appendChild(description);
-            }
-
-
-            // 対処法
-            if (disease.treatment) {
-
-                const treatment = document.createElement("p");
-
-                treatment.textContent =
-                    `対応：${disease.treatment}`;
-
-                item.appendChild(treatment);
-            }
-
-
-            card.appendChild(item);
-        });
-    }
+    details.appendChild(detailsGrid);
 
 
     // 注意書き
-    const disclaimer = document.createElement("p");
+    details.appendChild(
+        createElement(
+            "p",
+            "result-disclaimer",
+            "※ この結果はAIによる参考情報です。確定診断ではありません。症状が悪化した場合や緊急性が疑われる場合は、速やかに動物病院を受診してください。"
+        )
+    );
 
-    disclaimer.className = "chat-note";
-
-    disclaimer.textContent =
-        "この結果は可能性の目安です。確定診断には獣医師の診察が必要です。";
-
-    card.appendChild(disclaimer);
+    resultContent.appendChild(details);
 
 
-    // 画面に追加
-    chatBox.appendChild(card);
+    // ========================================
+    // 画面切り替え
+    // ========================================
 
-    scrollChatToBottom();
+    // チャットを非表示
+    chatPage.hidden = true;
+
+    chatControls.hidden = true;
+
+    // 結果画面を表示
+    resultScreen.hidden = false;
+
+    // ページスクロールに切り替え
+    document.body.classList.remove("chat-mode");
+
+    document.body.classList.add("result-mode");
+
+    // 進捗を結果にする
+    updateProgress(true);
+
+    // ページ先頭へ
+    window.scrollTo({
+        top: 0,
+        behavior: "auto"
+    });
+
 }
 
 
@@ -476,15 +694,11 @@ function appendResult(result) {
 // メッセージ送信処理
 // ========================================
 
-async function sendMessage(
-    message = userInput.value.trim(),
-    options = {}
-) {
+// ========================================
+// メッセージ送信
+// ========================================
 
-    const {
-        showUserMessage = true,
-        countTurn = true
-    } = options;
+async function sendMessage(message = userInput.value.trim()) {
 
     const text = String(message ?? "").trim();
 
@@ -492,24 +706,13 @@ async function sendMessage(
 
     if (!catProfile) return;
 
-
-    // 入力欄をクリア
     userInput.value = "";
 
+    addMessage(text, "user");
 
-    // ユーザーのメッセージを表示
-    if (showUserMessage) {
-        addMessage(text, "user");
-    }
-
-
-    // ローディング
     showLoading();
 
     setRequestState(true);
-
-    updateProgress(false);
-
 
     try {
 
@@ -525,15 +728,10 @@ async function sendMessage(
 
                 message: text,
 
-                // フォームで取得した基礎情報
                 profile: catProfile,
 
-                // 初回フォーム送信は回数に含めない
-                turn_count: countTurn
-                    ? turnCount + 1
-                    : turnCount,
+                turn_count: turnCount + 1,
 
-                // これまでの会話履歴
                 history: conversationHistory
 
             })
@@ -541,90 +739,78 @@ async function sendMessage(
         });
 
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
 
         if (!response.ok) {
 
-            throw new Error(
-                data.detail || "サーバーとの通信に失敗しました。"
-            );
+            const detail =
+                typeof data.detail === "string"
+                    ? data.detail
+                    : "サーバーとの通信に失敗しました。";
+
+            throw new Error(detail);
 
         }
 
 
         if (!data || typeof data.reply !== "string") {
 
-            throw new Error(
-                "AIから正しい返信を取得できませんでした。"
-            );
+            throw new Error("AIの返信形式が不正です。");
 
         }
 
 
-        // 実際のチャット回答数だけ加算
-        if (countTurn) {
-            turnCount++;
-        }
+        turnCount++;
 
 
-        // 会話履歴を保存
+        // 履歴保存
         conversationHistory.push({
-
             role: "user",
-
             content: text
-
         });
 
         conversationHistory.push({
-
             role: "model",
-
             content: data.reply
-
         });
 
 
-        // ロード画面削除
         removeLoading();
 
 
-        // AIの返信
-        addMessage(data.reply, "ai");
+        // ========================================
+        // 診断終了：結果画面に切り替え
+        // ========================================
 
-
-        // 診断終了
         if (data.is_finished === true) {
 
             isFinished = true;
 
-            appendResult(data.result);
-
             updateSuggestions([]);
 
-            updateProgress(true);
+            showResultScreen(data.result, data.reply);
 
-        }
-
-        // 診断継続
-        else {
-
-            updateSuggestions(data.templates);
-
-            updateProgress(false);
+            return;
 
         }
 
 
-        // 10回に到達した場合
-        if (turnCount >= 10 && !isFinished) {
+        // ========================================
+        // 診断継続：チャット画面に表示
+        // ========================================
+
+        addMessage(data.reply, "ai");
+
+        updateSuggestions(data.templates);
+
+
+        // 10回の制限
+        if (turnCount >= 10) {
 
             isFinished = true;
 
             updateSuggestions([]);
-
-            updateProgress(true);
 
             addMessage(
                 "聞き取り回数の上限に達しました。詳しい診断は動物病院でご相談ください。",
@@ -637,16 +823,17 @@ async function sendMessage(
 
         removeLoading();
 
+        const errorMessage =
+            error instanceof Error
+                ? error.message
+                : "通信エラーが発生しました。";
+
         addMessage(
-            `申し訳ありません。${error.message}`,
+            `申し訳ありません。${errorMessage}`,
             "ai"
         );
 
-
-        // 通常入力の場合のみ入力欄に復元
-        if (showUserMessage) {
-            userInput.value = text;
-        }
+        userInput.value = text;
 
     } finally {
 
@@ -654,11 +841,10 @@ async function sendMessage(
 
         syncChatLayout();
 
-        scrollChatToBottom();
-
-        userInput.focus();
-
-        profileSubmit.disabled = false;
+        if (!isFinished) {
+            scrollChatToBottom();
+            userInput.focus();
+        }
 
     }
 
@@ -668,16 +854,20 @@ async function sendMessage(
 // 基礎情報フォームの送信
 // ========================================
 
-profileForm.addEventListener("submit", async (event) => {
+// ========================================
+// 基本情報フォーム送信
+// ========================================
+
+profileForm.addEventListener("submit", (event) => {
 
     event.preventDefault();
 
     if (!profileForm.reportValidity()) return;
 
-    if (isRequesting) return;
+    if (isRequesting || hasStartedChat) return;
 
 
-    // フォームの回答を取得
+    // 基本情報を取得
     const formData = new FormData(profileForm);
 
     catProfile = {
@@ -693,37 +883,44 @@ profileForm.addEventListener("submit", async (event) => {
     };
 
 
-    // 二重送信防止
-    profileSubmit.disabled = true;
-
-
-    // フォームを非表示にする
+    // フォームを非表示
     profilePanel.hidden = true;
 
-    // チャット画面を表示
+    // チャット欄を表示
     chatBox.hidden = false;
 
     chatControls.hidden = false;
 
+    // チャット状態に変更
     hasStartedChat = true;
 
-    syncChatLayout();
+    document.body.classList.add("chat-mode");
 
+    // 進捗を健康相談に変更
     updateProgress(false);
 
 
-    // フォームの情報をAIに送信
-    // ユーザーの吹き出しには表示しない
-    await sendMessage(
-        "事前情報を確認し、必要な追加質問を短く1つだけ行ってください。",
-        {
-            showUserMessage: false,
-            countTurn: false
-        }
-    );
+    // 初回の挨拶はAPIを呼ばずに表示
+    const greeting = "今日はどうされましたか？";
+
+    addMessage(greeting, "ai");
+
+
+    // AIの挨拶を会話履歴に保存
+    conversationHistory.push({
+        role: "model",
+        content: greeting
+    });
+
+
+    // 画面位置を初期化
+    syncChatLayout();
+
+    scrollChatToBottom();
+
+    userInput.focus();
 
 });
-
 
 // ========================================
 // フォーム送信（送信ボタン・Enterキー）
