@@ -1,0 +1,946 @@
+
+/* =================================
+   ねこカルテ 利用規約ページ
+   既存ページ共通デザイン
+================================= */
+
+.terms-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 20px 90px;
+    background-color: #FFF9ED;
+    color: #8C6F56;
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* ==========================
+   タイトルエリア
+========================== */
+
+.terms-hero {
+    width: 100%;
+    padding: 75px 20px 55px;
+    text-align: center;
+    background-color: #FFF9ED;
+}
+
+.terms-en {
+    display: block;
+    color: #C5A384;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    margin-bottom: 12px;
+}
+
+.terms-hero h1 {
+    color: #8C6F56;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.terms-title-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 18px auto;
+}
+
+.terms-title-line span:not(.paw) {
+    width: 55px;
+    height: 1px;
+    background-color: #C5A384;
+}
+
+.terms-title-line .paw {
+    font-size: 1.2rem;
+}
+
+.terms-hero > p {
+    color: #9D826A;
+    font-size: 0.9rem;
+    line-height: 2;
+}
+
+/* ==========================
+   規約本文エリア
+========================== */
+
+.terms-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* 最初の説明 */
+
+.terms-intro {
+    background-color: #F5EBDD;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin-bottom: 35px;
+    border-left: 4px solid #C5A384;
+}
+
+.terms-intro p {
+    font-size: 0.9rem;
+    line-height: 2.1;
+    color: #8C6F56;
+}
+
+/* ==========================
+   規約カード
+========================== */
+
+.terms-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 30px 25px;
+    margin-bottom: 18px;
+    background-color: #FFFFFF;
+    border: 1px solid #EFE3D4;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(140, 111, 86, 0.04);
+}
+
+.terms-number {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #F5EBDD;
+    color: #A77E59;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.terms-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.terms-card h2 {
+    position: relative;
+    padding-bottom: 12px;
+    margin-bottom: 17px;
+    color: #806247;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.terms-card h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #C5A384;
+}
+
+.terms-card p {
+    color: #8C6F56;
+    font-size: 0.9rem;
+    line-height: 2.1;
+    margin-bottom: 12px;
+}
+
+.terms-card p:last-child {
+    margin-bottom: 0;
+}
+
+.terms-card ul {
+    padding-left: 22px;
+    margin-top: 12px;
+}
+
+.terms-card li {
+    padding-left: 4px;
+    color: #8C6F56;
+    font-size: 0.9rem;
+    line-height: 2;
+}
+
+/* お問い合わせリンク */
+
+.terms-contact-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: #A77E59;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #C5A384;
+    padding-bottom: 3px;
+}
+
+.terms-contact-link:hover {
+    color: #705541;
+}
+
+/* ==========================
+   更新日
+========================== */
+
+.terms-update {
+    text-align: center;
+    margin: 50px auto 30px;
+}
+
+.terms-update span {
+    color: #C5A384;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.terms-update p {
+    margin-top: 8px;
+    color: #8C6F56;
+    font-size: 0.85rem;
+}
+
+/* ==========================
+   戻るボタン
+========================== */
+
+.terms-back {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.terms-back a {
+    display: inline-block;
+    padding: 14px 40px;
+    border-radius: 999px;
+    background-color: #8C6F56;
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.terms-back a:hover {
+    background-color: #705541;
+}
+
+
+/* ===================================
+   TERMS PAGE - RESPONSIVE
+=================================== */
+
+/* タブレット */
+@media screen and (max-width: 800px) {
+
+    .terms-hero {
+        min-height: 300px;
+        padding: 55px 18px;
+    }
+
+    .terms-hero-bg {
+        font-size: 25vw;
+    }
+
+    .terms-layout {
+        display: block;
+        padding: 35px 20px 60px;
+    }
+
+    /* 目次 */
+    .terms-sidebar {
+        margin-bottom: 35px;
+    }
+
+    .sidebar-inner {
+        position: static;
+        padding: 22px;
+    }
+
+    .sidebar-inner h2 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .terms-sidebar a {
+        display: inline-flex;
+        width: calc(50% - 5px);
+        box-sizing: border-box;
+        font-size: 12px;
+        padding: 12px 3px;
+    }
+
+    .sidebar-cat {
+        display: none;
+    }
+
+    /* 導入 */
+    .terms-intro {
+        padding: 25px;
+        margin-bottom: 35px;
+    }
+
+    .intro-paw {
+        font-size: 48px;
+    }
+
+    /* 各項目 */
+    .section-heading {
+        gap: 14px;
+    }
+
+    .section-number {
+        width: 45px;
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+    }
+
+    .section-body {
+        padding-left: 59px;
+    }
+
+    .section-body > p {
+        font-size: 12px;
+    }
+
+    .terms-highlight {
+        padding: 22px;
+    }
+}
+
+/* スマートフォン */
+@media screen and (max-width: 600px) {
+
+    .terms-page {
+        overflow: hidden;
+    }
+
+    /* メインビジュアル */
+    .terms-hero {
+        min-height: 270px;
+        padding: 48px 15px 55px;
+    }
+
+    .terms-hero-bg {
+        font-size: 30vw;
+    }
+
+    .terms-eyebrow {
+        font-size: 9px;
+        letter-spacing: .18em;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .terms-eyebrow span {
+        width: 22px;
+    }
+
+    .terms-hero h1 {
+        font-size: 38px;
+        letter-spacing: .12em;
+    }
+
+    .terms-hero-en {
+        font-size: 10px;
+        letter-spacing: .3em;
+    }
+
+    .terms-hero-paw {
+        font-size: 23px;
+        margin: 16px 0 8px;
+    }
+
+    .terms-hero-description {
+        font-size: 11px;
+        line-height: 2;
+    }
+
+    .terms-hero-bottom {
+        font-size: 8px;
+        letter-spacing: .2em;
+    }
+
+    /* 全体レイアウト */
+    .terms-layout {
+        padding: 30px 15px 50px;
+    }
+
+    /* 目次 */
+    .sidebar-inner {
+        padding: 20px 17px;
+        border-radius: 12px;
+    }
+
+    .sidebar-en {
+        font-size: 9px;
+    }
+
+    .sidebar-inner h2 {
+        font-size: 19px;
+        margin: 6px 0 10px;
+    }
+
+    .terms-sidebar a {
+        width: 100%;
+        display: flex;
+        font-size: 12px;
+        padding: 12px 2px;
+        gap: 12px;
+    }
+
+    /* 導入文 */
+    .terms-intro {
+        padding: 23px 19px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+
+    .intro-label {
+        font-size: 9px;
+    }
+
+    .terms-intro h2 {
+        font-size: 21px;
+        margin: 10px 0;
+    }
+
+    .terms-intro p {
+        font-size: 12px;
+        line-height: 2;
+        position: relative;
+        z-index: 1;
+    }
+
+    .intro-paw {
+        right: 10px;
+        bottom: 5px;
+        font-size: 45px;
+    }
+
+    /* 各規約項目 */
+    .terms-section {
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+        scroll-margin-top: 15px;
+    }
+
+    .section-heading {
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .section-number {
+        width: 40px;
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .section-en {
+        font-size: 8px;
+        margin-bottom: 4px;
+    }
+
+    .section-heading h2 {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .section-body {
+        padding-left: 0;
+    }
+
+    .section-body > p {
+        font-size: 12px;
+        line-height: 2.1;
+        margin-bottom: 10px;
+    }
+
+    /* AI相談の注意書き */
+    .terms-highlight {
+        padding: 18px 14px;
+        border-radius: 12px;
+    }
+
+    .terms-notice {
+        gap: 10px;
+        padding: 14px 11px;
+        margin-top: 15px;
+    }
+
+    .notice-icon {
+        width: 23px;
+        height: 23px;
+        font-size: 12px;
+    }
+
+    .terms-notice strong {
+        font-size: 12px;
+    }
+
+    .terms-notice p {
+        font-size: 11px;
+        line-height: 1.9;
+    }
+
+    /* 禁止事項 */
+    .terms-list li {
+        font-size: 11px;
+        padding: 9px 5px 9px 25px;
+        line-height: 1.8;
+    }
+
+    /* お問い合わせボタン */
+    .terms-contact-link {
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: space-between;
+        padding: 14px 18px;
+        font-size: 12px;
+        margin-top: 12px;
+    }
+
+    /* 更新日 */
+    .terms-update {
+        padding: 18px 0;
+    }
+
+    /* ページ下部 */
+    .terms-bottom {
+        padding: 45px 18px 55px;
+    }
+
+    .bottom-paw {
+        font-size: 29px;
+        margin-bottom: 13px;
+    }
+
+    .terms-bottom h2 {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .terms-bottom p {
+        font-size: 11px;
+        line-height: 1.8;
+    }
+
+    .terms-bottom a {
+        padding: 13px 28px;
+        font-size: 12px;
+    }
+}
+
+/* 小さいスマホ */
+@media screen and (max-width: 380px) {
+
+    .terms-hero h1 {
+        font-size: 33px;
+    }
+
+    .terms-layout {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .terms-sidebar a {
+        font-size: 11px;
+    }
+
+    .section-heading h2 {
+        font-size: 14px;
+    }
+
+    .terms-intro {
+        padding: 20px 15px;
+    }
+
+    .terms-highlight {
+        padding: 15px 11px;
+    }
+}
+
+
+
+/* ===================================
+   スマホ横幅のはみ出し修正
+=================================== */
+
+@media screen and (max-width: 600px) {
+
+    /* 横幅の計算を統一 */
+    .terms-page,
+    .terms-page * {
+        box-sizing: border-box;
+    }
+
+    .terms-page {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        overflow-x: clip;
+    }
+
+    /* 各コンテンツを画面幅に収める */
+    .terms-container,
+    .terms-layout,
+    .terms-main,
+    .terms-intro,
+    .terms-card,
+    .terms-section,
+    .terms-update,
+    .terms-back {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    /* カード内部の文章 */
+    .terms-card-content,
+    .terms-intro p,
+    .terms-card p,
+    .terms-card li,
+    .section-body {
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    /* カードの余白 */
+    .terms-card {
+        gap: 12px;
+        padding: 20px 15px;
+    }
+
+    .terms-card-content {
+        flex: 1;
+    }
+
+    /* 導入部分 */
+    .terms-intro {
+        padding: 20px;
+    }
+
+    /* 本文 */
+    .terms-card p {
+        line-height: 2;
+    }
+
+    /* 横スクロール防止 */
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+
+/* =========================================
+   スマホ表示 完全修正版
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+    /* 横幅のはみ出し・上部の余白を防止 */
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden;
+    }
+
+    body {
+        position: relative;
+    }
+
+    /* =====================================
+       HEADER：ロゴ上・ナビ下の2段構成
+    ===================================== */
+
+    header {
+        position: relative;
+        top: 0 !important;
+        margin: 0 !important;
+        padding: 8px 12px 10px !important;
+
+        width: 100%;
+        max-width: 100%;
+        min-height: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 5px !important;
+        background: #FDEBD2;
+    }
+
+    /* 1段目：ロゴ */
+    .header-logo {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+
+        width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .header-logo img {
+        display: block;
+        width: 190px;
+        max-width: 65%;
+        height: auto;
+        margin: 0 auto !important;
+    }
+
+    /* 2段目：ナビゲーション */
+    .header-nav-container {
+        width: 100%;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .header-nav-container nav {
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .header-nav-container nav ul {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 22px;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none;
+    }
+
+    .header-nav-container nav li {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .header-nav-container nav a {
+        display: block;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .nav-cat-img {
+        display: block !important;
+        width: 35px;
+        max-width: 12%;
+        height: auto;
+        margin: 0 !important;
+    }
+
+    /* =====================================
+       規約ページ全体
+    ===================================== */
+
+    .terms-page {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 0 40px !important;
+        overflow-x: hidden;
+    }
+
+    /* タイトル部分 */
+    .terms-hero {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0 !important;
+        padding: 45px 15px 40px !important;
+    }
+
+    .terms-hero h1 {
+        font-size: 35px;
+        letter-spacing: .12em;
+    }
+
+    .terms-hero > p {
+        font-size: 12px;
+        line-height: 2;
+    }
+
+    /* 規約コンテンツ */
+    .terms-container,
+    .terms-main,
+    .terms-layout {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 auto !important;
+        padding: 20px 15px 45px !important;
+    }
+
+    /* 導入文 */
+    .terms-intro {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 0 25px !important;
+        padding: 20px !important;
+        border-radius: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .terms-intro p {
+        width: 100%;
+        max-width: 100%;
+        font-size: 12px;
+        line-height: 2;
+        overflow-wrap: anywhere;
+    }
+
+    /* 規約カード */
+    .terms-card,
+    .terms-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 0 18px !important;
+        padding: 20px 15px !important;
+        gap: 12px;
+        border-radius: 12px;
+    }
+
+    .terms-number,
+    .section-number {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        font-size: 13px;
+    }
+
+    .terms-card-content {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .terms-card h2,
+    .section-heading h2 {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .terms-card p,
+    .terms-card li,
+    .section-body p {
+        max-width: 100%;
+        font-size: 12px;
+        line-height: 2.1;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .terms-card ul {
+        max-width: 100%;
+        padding-left: 18px;
+    }
+
+    /* 目次 */
+    .terms-sidebar {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .sidebar-inner {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        padding: 18px;
+    }
+
+    .terms-sidebar a {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    /* 本文の注意書き */
+    .terms-notice {
+        width: 100%;
+        max-width: 100%;
+        padding: 13px;
+        gap: 10px;
+    }
+
+    .terms-notice p {
+        font-size: 11px;
+        overflow-wrap: anywhere;
+    }
+
+    /* 更新日・戻るボタン */
+    .terms-update {
+        width: 100%;
+        max-width: 100%;
+        text-align: right;
+    }
+
+    .terms-back {
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    /* ページ下部 */
+    .terms-bottom {
+        width: 100%;
+        max-width: 100%;
+        padding: 40px 15px 50px;
+    }
+
+    .terms-bottom h2 {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    /* フッター */
+    footer {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .terms-update {
+        text-align: center !important;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
