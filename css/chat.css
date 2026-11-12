@@ -19,7 +19,12 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body{
+    min-height: 100dvh;
 }
 
 button,input {
@@ -35,7 +40,9 @@ button,input {
     min-height: 0;
 
     margin: 0 auto;
-    padding: 20px 0 78px;
+
+    padding: 20px 0
+        calc(var(--controls-space, 24px) + 20px);
 
     overflow: hidden;
 }
@@ -97,7 +104,7 @@ button,input {
     height: 0;
     min-height: 0;
 
-    margin: 84px auto 100px;
+    margin: 84px auto 0;
 
     overflow-x: hidden;
     overflow-y: auto;
@@ -163,21 +170,48 @@ button,input {
     40% { transform: translateY(-6px); opacity: 1; }
 }
 
-.chat-controls {
+/* .chat-controls {
     width: min(512px, 100%);
     margin: auto auto 0;
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translate(-50%);
+} */
+
+.chat-controls {
+    position: fixed;
+
+    bottom: max(20px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(512px, calc(100% - 32px));
+
+    margin: 0;
+
+    z-index: 100;
 }
 
-.options-container {
+ .options-container {
     display: flex;
     flex-wrap: wrap;
+
     gap: 10px;
-    min-height: 48px;
+
+    min-height: 0;
     margin-bottom: 12px;
+
+    max-height: 30dvh;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: #e7c9a5 transparent;
+}
+
+.options-container:empty {
+    display: none;
+    margin-bottom: 0;
 }
 
 .option-btn {
@@ -331,12 +365,170 @@ button,input {
     border: 0;
 }
 
+.profile-panel[hidden],
+.chat-box[hidden],
+.chat-controls[hidden] {
+    display: none !important;
+}
+
+/* ========================================
+   事前情報フォーム
+======================================== */
+
+.profile-panel {
+    width: min(580px, 100%);
+
+    margin: 40px auto 20px;
+    padding: 25px;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 2px solid var(--bubble-border);
+    border-radius: 22px;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #e7c9a5 transparent;
+}
+
+.profile-panel h2 {
+    margin: 0 0 10px;
+
+    color: var(--accent-dark);
+    font-size: 21px;
+    text-align: center;
+}
+
+.profile-description {
+    margin-bottom: 24px;
+
+    font-size: 13px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-field label {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.profile-field input,
+.profile-field select {
+    width: 100%;
+    height: 48px;
+
+    padding: 0 15px;
+
+    color: var(--text);
+    background: #fff;
+
+    border: 2px solid var(--bubble-border);
+    border-radius: 12px;
+
+    outline: none;
+    font-size: 14px;
+}
+
+.profile-field input:focus,
+.profile-field select:focus {
+    border-color: var(--accent);
+}
+
+.profile-submit {
+    width: 100%;
+    min-height: 54px;
+
+    margin-top: 8px;
+    padding: 12px;
+
+    color: white;
+    background: var(--bubble-user);
+
+    border: none;
+    border-radius: 30px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.profile-submit:hover {
+    background: #c79357;
+}
+
+.profile-submit:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* ========================================
+   スマートフォン
+======================================== */
+
 @media (max-width: 600px) {
+
+    body {
+        overflow: hidden;
+    }
+
+    .chat-page {
+        width: calc(100% - 28px);
+        height: 100dvh;
+        min-height: 0;
+
+        padding-top: 18px;
+    }
+
+    .chat-box {
+        margin-top: 54px;
+    }
+
+    .profile-panel {
+        margin-top: 65px;
+        padding: 20px;
+    }
+
+    .profile-panel h2 {
+        font-size: 18px;
+    }
+
+    .chat-controls {
+        width: calc(100% - 28px);
+    }
+
+    .options-container {
+        gap: 8px;
+        max-height: 30dvh;
+    }
+
+    .option-btn {
+        min-height: 42px;
+        padding: 9px 14px;
+        font-size: 13px;
+    }
     body {
         overflow: auto;
     }
 
-    .chat-page {
+    /* .chat-page {
         width: calc(100% - 28px);
         min-height: 100svh;
         height: 100svh;
@@ -370,5 +562,5 @@ button,input {
 
     .send-btn {
         height: 54px;
-    }
+    } */
 }

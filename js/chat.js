@@ -2,19 +2,118 @@
 // 猫の健康相談AI チャット処理
 // ========================================
 
-const chatBox = document.getElementById("chat-box");
-const chatForm = document.getElementById("chat-form");
-const userInput = document.getElementById("user-input");
-const optionsContainer = document.getElementById("options-container");
-const sendButton = chatForm.querySelector("button[type='submit']");
+// ========================================
+// HTML要素の取得
+// ========================================
 
-// 会話履歴
+const chatBox = document.getElementById("chat-box");
+
+const chatForm = document.getElementById("chat-form");
+
+const userInput = document.getElementById("user-input");
+
+const optionsContainer =
+    document.getElementById("options-container");
+
+const chatControls =
+    document.querySelector(".chat-controls");
+
+const chatPage =
+    document.querySelector(".chat-page");
+
+const profileForm =
+    document.getElementById("profile-form");
+
+const profilePanel =
+    document.getElementById("profile-panel");
+
+const sendButton =
+    chatForm.querySelector("button[type='submit']");
+
+const profileSubmit =
+    profileForm.querySelector("button[type='submit']");
+
+
+// 必要なHTML要素の確認
+if (
+    !chatBox ||
+    !chatForm ||
+    !userInput ||
+    !optionsContainer ||
+    !chatControls ||
+    !chatPage ||
+    !profileForm ||
+    !profilePanel
+) {
+    throw new Error("チャットに必要なHTML要素が見つかりません。");
+}
+
+
+// ========================================
+// チャット情報
+// ========================================
+
 const conversationHistory = [];
 
+// フォームで取得した猫の基礎情報
+let catProfile = null;
+
 let turnCount = 0;
+
 let isRequesting = false;
+
 let isFinished = false;
 
+let hasStartedChat = false;
+
+// ========================================
+// 入力エリアの高さを測定
+// ========================================
+
+function syncChatLayout() {
+
+    if (
+        !chatControls ||
+        chatControls.hidden ||
+        !chatPage
+    ) {
+        return;
+    }
+
+    // 候補と入力欄を含む全体の高さを取得
+    const controlsHeight =
+        chatControls.getBoundingClientRect().height;
+
+    // 下部に余裕を持たせる
+    const requiredSpace =
+        Math.ceil(controlsHeight + 40);
+
+    // チャット画面の下部余白を自動調整
+    chatPage.style.setProperty(
+        "--controls-space",
+        `${requiredSpace}px`
+    );
+}
+
+
+// ========================================
+// 入力エリアの高さを常時監視
+// ========================================
+
+const controlsObserver = new ResizeObserver(() => {
+
+    syncChatLayout();
+
+    if (!chatBox.hidden) {
+        requestAnimationFrame(scrollChatToBottom);
+    }
+
+});
+
+// 候補ボタンの増減や折り返しを監視
+controlsObserver.observe(chatControls);
+
+window.addEventListener("resize", syncChatLayout);
 
 // ========================================
 // メッセージを画面に追加
@@ -74,28 +173,21 @@ function showLoading() {
 
 function scrollChatToBottom() {
 
-    if (!chatBox) return;
+    if (!chatBox || chatBox.hidden) return;
 
-    const scroll = () => {
+    syncChatLayout();
+
+    requestAnimationFrame(() => {
 
         chatBox.scrollTop = chatBox.scrollHeight;
 
-    };
+        requestAnimationFrame(() => {
 
-    // 即時スクロール
-    scroll();
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-    // 描画更新後
-    requestAnimationFrame(() => {
-
-        scroll();
-
-        requestAnimationFrame(scroll);
+        });
 
     });
-
-    // 画像や文字のレイアウト変化にも対応
-    setTimeout(scroll, 150);
 }
 
 
@@ -132,27 +224,29 @@ function setRequestState(requesting) {
 
 
 // ========================================
-// AIから届いた返信候補を表示
+// 返信候補を生成
 // ========================================
 
 function updateSuggestions(items) {
 
-    // 古い候補を削除
     optionsContainer.replaceChildren();
 
-    if (!Array.isArray(items) || isFinished) return;
+    if (!Array.isArray(items) || isFinished) {
+        syncChatLayout();
+        return;
+    }
 
-    // 最大3個まで表示
     items
-        .filter((item) => {
+        .filter(item => {
             return typeof item === "string" && item.trim();
         })
         .slice(0, 3)
-        .forEach((item) => {
+        .forEach(item => {
 
             const button = document.createElement("button");
 
             button.type = "button";
+
             button.className = "option-btn";
 
             button.dataset.option = item;
@@ -162,25 +256,26 @@ function updateSuggestions(items) {
             button.disabled = isRequesting;
 
             optionsContainer.appendChild(button);
+
         });
+
+    // 候補の数に応じて高さを再計算
+    syncChatLayout();
+
+    scrollChatToBottom();
 }
-
-
-// ========================================
-// 進捗状況を更新
-// ========================================
 
 function updateProgress(finished) {
 
     document
         .querySelectorAll(".progress__step")
-        .forEach((step) => {
+        .forEach(step => {
 
             const number = Number(step.dataset.step);
 
             const currentStep = finished
                 ? 3
-                : (turnCount === 0 ? 1 : 2);
+                : (hasStartedChat ? 2 : 1);
 
             step.classList.toggle(
                 "is-current",
@@ -191,6 +286,7 @@ function updateProgress(finished) {
                 "is-done",
                 number < currentStep
             );
+
         });
 }
 
@@ -380,67 +476,125 @@ function appendResult(result) {
 // メッセージ送信処理
 // ========================================
 
-async function sendMessage(message = userInput.value.trim()) {
+async function sendMessage(
+    message = userInput.value.trim(),
+    options = {}
+) {
+
+    const {
+        showUserMessage = true,
+        countTurn = true
+    } = options;
 
     const text = String(message ?? "").trim();
 
     if (!text || isRequesting || isFinished) return;
 
-    // 入力欄を必ず空にする
+    if (!catProfile) return;
+
+
+    // 入力欄をクリア
     userInput.value = "";
 
-    // ユーザーの吹き出しは必ず表示する
-    addMessage(text, "user");
 
+    // ユーザーのメッセージを表示
+    if (showUserMessage) {
+        addMessage(text, "user");
+    }
+
+
+    // ローディング
     showLoading();
 
     setRequestState(true);
 
     updateProgress(false);
 
+
     try {
 
         const response = await fetch("/api/chat", {
+
             method: "POST",
+
             headers: {
                 "Content-Type": "application/json"
             },
+
             body: JSON.stringify({
+
                 message: text,
-                turn_count: turnCount + 1,
+
+                // フォームで取得した基礎情報
+                profile: catProfile,
+
+                // 初回フォーム送信は回数に含めない
+                turn_count: countTurn
+                    ? turnCount + 1
+                    : turnCount,
+
+                // これまでの会話履歴
                 history: conversationHistory
+
             })
+
         });
+
 
         const data = await response.json();
 
+
         if (!response.ok) {
+
             throw new Error(
-                data.detail || "通信に失敗しました。"
+                data.detail || "サーバーとの通信に失敗しました。"
             );
+
         }
+
 
         if (!data || typeof data.reply !== "string") {
-            throw new Error("AIの返信形式が不正です。");
+
+            throw new Error(
+                "AIから正しい返信を取得できませんでした。"
+            );
+
         }
 
-        turnCount++;
 
+        // 実際のチャット回答数だけ加算
+        if (countTurn) {
+            turnCount++;
+        }
+
+
+        // 会話履歴を保存
         conversationHistory.push({
+
             role: "user",
+
             content: text
+
         });
 
         conversationHistory.push({
+
             role: "model",
+
             content: data.reply
+
         });
 
+
+        // ロード画面削除
         removeLoading();
 
-        // AIの返信を表示
+
+        // AIの返信
         addMessage(data.reply, "ai");
 
+
+        // 診断終了
         if (data.is_finished === true) {
 
             isFinished = true;
@@ -451,7 +605,10 @@ async function sendMessage(message = userInput.value.trim()) {
 
             updateProgress(true);
 
-        } else {
+        }
+
+        // 診断継続
+        else {
 
             updateSuggestions(data.templates);
 
@@ -459,6 +616,8 @@ async function sendMessage(message = userInput.value.trim()) {
 
         }
 
+
+        // 10回に到達した場合
         if (turnCount >= 10 && !isFinished) {
 
             isFinished = true;
@@ -471,6 +630,7 @@ async function sendMessage(message = userInput.value.trim()) {
                 "聞き取り回数の上限に達しました。詳しい診断は動物病院でご相談ください。",
                 "ai"
             );
+
         }
 
     } catch (error) {
@@ -482,17 +642,87 @@ async function sendMessage(message = userInput.value.trim()) {
             "ai"
         );
 
-        userInput.value = text;
+
+        // 通常入力の場合のみ入力欄に復元
+        if (showUserMessage) {
+            userInput.value = text;
+        }
 
     } finally {
 
         setRequestState(false);
 
+        syncChatLayout();
+
         scrollChatToBottom();
 
         userInput.focus();
+
+        profileSubmit.disabled = false;
+
     }
+
 }
+
+// ========================================
+// 基礎情報フォームの送信
+// ========================================
+
+profileForm.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    if (!profileForm.reportValidity()) return;
+
+    if (isRequesting) return;
+
+
+    // フォームの回答を取得
+    const formData = new FormData(profileForm);
+
+    catProfile = {
+
+        age: String(formData.get("age")).trim(),
+
+        breed: String(formData.get("breed")).trim(),
+
+        energy: String(formData.get("energy")).trim(),
+
+        appetite: String(formData.get("appetite")).trim()
+
+    };
+
+
+    // 二重送信防止
+    profileSubmit.disabled = true;
+
+
+    // フォームを非表示にする
+    profilePanel.hidden = true;
+
+    // チャット画面を表示
+    chatBox.hidden = false;
+
+    chatControls.hidden = false;
+
+    hasStartedChat = true;
+
+    syncChatLayout();
+
+    updateProgress(false);
+
+
+    // フォームの情報をAIに送信
+    // ユーザーの吹き出しには表示しない
+    await sendMessage(
+        "事前情報を確認し、必要な追加質問を短く1つだけ行ってください。",
+        {
+            showUserMessage: false,
+            countTurn: false
+        }
+    );
+
+});
 
 
 // ========================================
@@ -504,6 +734,7 @@ chatForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     sendMessage();
+
 });
 
 
@@ -511,6 +742,7 @@ chatForm.addEventListener("submit", (event) => {
 // 返信候補ボタンのクリック処理
 // クリックした内容をそのままAIに送信
 // ========================================
+
 
 optionsContainer.addEventListener("click", (event) => {
 
@@ -520,9 +752,9 @@ optionsContainer.addEventListener("click", (event) => {
 
     if (!button || isRequesting || isFinished) return;
 
-    // 候補の内容を直接送信する
-    // 入力欄には代入しない
+    // 候補をユーザーの回答として送信
     sendMessage(button.dataset.option);
+
 });
 
 
