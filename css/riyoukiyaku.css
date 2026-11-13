@@ -236,7 +236,7 @@
 =================================== */
 
 /* タブレット */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
 
     .terms-hero {
         min-height: 300px;
@@ -673,98 +673,15 @@
     }
 
     /* =====================================
-       HEADER：ロゴ上・ナビ下の2段構成
-    ===================================== */
-
-    header {
-        position: relative;
-        top: 0 !important;
-        margin: 0 !important;
-        padding: 8px 12px 10px !important;
-
-        width: 100%;
-        max-width: 100%;
-        min-height: 0 !important;
-
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 5px !important;
-        background: #FDEBD2;
-    }
-
-    /* 1段目：ロゴ */
-    .header-logo {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-
-        width: 100%;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .header-logo img {
-        display: block;
-        width: 190px;
-        max-width: 65%;
-        height: auto;
-        margin: 0 auto !important;
-    }
-
-    /* 2段目：ナビゲーション */
-    .header-nav-container {
-        width: 100%;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 12px;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .header-nav-container nav {
-        display: block;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .header-nav-container nav ul {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 22px;
-        margin: 0 !important;
-        padding: 0 !important;
-        list-style: none;
-    }
-
-    .header-nav-container nav li {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .header-nav-container nav a {
-        display: block;
-        font-size: 12px;
-        white-space: nowrap;
-    }
-
-    .nav-cat-img {
-        display: block !important;
-        width: 35px;
-        max-width: 12%;
-        height: auto;
-        margin: 0 !important;
-    }
-
-    /* =====================================
        規約ページ全体
     ===================================== */
 
+    .terms-update {
+        text-align: center !important;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
     .terms-page {
         width: 100% !important;
         max-width: 100% !important;
@@ -934,13 +851,5 @@
         width: 100%;
         max-width: 100%;
         margin: 0;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .terms-update {
-        text-align: center !important;
-        width: 100%;
-        margin: 0 auto;
     }
 }
