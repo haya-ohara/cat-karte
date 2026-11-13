@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             data.forEach(symptomGroup => {
                 symptomGroup.possible_diseases.forEach(item => {
-                    // 同じ病名がすでに登録されていなければ追加（必要に応じて症状名なども保持可能）
+                    // 同じ病名がすでに登録されていなければ追加
                     if (!diseaseMap.has(item.disease_name)) {
                         diseaseMap.set(item.disease_name, {
                             name: item.disease_name,
@@ -83,15 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. 検索ボックスに入力されたときのリアルタイムフィルタリング
+    // 3. 検索ボックスに入力されたときのリアルタイムフィルタリング（複数キーワード対応）
     searchBox.addEventListener('input', (e) => {
-        const keyword = e.target.value.toLowerCase().trim();
+        // 入力された文字を小文字にし、スペース（全角・半角）で分割して配列にする
+        const keywords = e.target.value.toLowerCase().trim().split(/[\s\u3000]+/);
         
-        const filteredDiseases = allDiseases.filter(disease => 
-            disease.name.toLowerCase().includes(keyword) ||
-            disease.details.toLowerCase().includes(keyword) ||
-            disease.solution.toLowerCase().includes(keyword)
-        );
+        const filteredDiseases = allDiseases.filter(disease => {
+            // 空白のみの場合はすべて表示
+            if (keywords.length === 1 && keywords[0] === "") return true;
+
+            // 入力されたすべてのキーワードが、病名・詳細・対処法のいずれかに含まれているか（AND検索）
+            return keywords.every(keyword => 
+                disease.name.toLowerCase().includes(keyword) ||
+                disease.details.toLowerCase().includes(keyword) ||
+                disease.solution.toLowerCase().includes(keyword)
+            );
+        });
 
         renderDiseases(filteredDiseases);
     });
