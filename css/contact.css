@@ -201,85 +201,7 @@ textarea:focus {
    PC版のデザインは変更しない
 ========================================== */
 
-@media screen and (max-width: 600px) {
-
-    /* ==================================
-       1. ヘッダー
-    ================================== */
-
-    header {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 8px !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
-        margin: 0 !important;
-        padding: 12px 14px !important;
-        box-sizing: border-box !important;
-        position: relative !important;
-    }
-
-    .header-logo {
-        display: block !important;
-        position: static !important;
-        width: 170px !important;
-        max-width: 55% !important;
-        min-width: 0 !important;
-        margin: 0 auto !important;
-    }
-
-    .header-logo img {
-        display: block !important;
-        width: 100% !important;
-        height: auto !important;
-        position: static !important;
-    }
-
-    .header-nav-container {
-        display: flex !important;
-        position: static !important;
-        width: 100% !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 16px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        transform: none !important;
-    }
-
-    .header-nav-container nav ul {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 20px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        list-style: none !important;
-    }
-
-    .header-nav-container nav li {
-        margin: 0 !important;
-        padding: 0 !important;
-        white-space: nowrap !important;
-    }
-
-    .header-nav-container nav a {
-        font-size: 12px !important;
-        white-space: nowrap !important;
-    }
-
-    .nav-cat-img {
-        display: block !important;
-        position: static !important;
-        width: 42px !important;
-        max-width: 12vw !important;
-        height: auto !important;
-        margin: 0 !important;
-        flex-shrink: 0 !important;
-    }
+@media screen and (max-width: 768px) {
 
 
     /* ==================================
@@ -294,11 +216,11 @@ textarea:focus {
         box-sizing: border-box;
     }
 
-    main {
+    /* main {
         width: 100%;
         padding: 35px 18px 0;
         box-sizing: border-box;
-    }
+    } */
 
     .contact-wrapper {
         width: 100%;
@@ -461,80 +383,33 @@ textarea:focus {
         overflow-wrap: anywhere;
     }
 
+}
 
-    /* ==================================
-       7. フッター
-    ================================== */
 
-    footer {
-        width: 100%;
-        margin-top: 70px !important;
-        padding: 20px 12px !important;
-        box-sizing: border-box;
+/* ==========================================
+   小さいスマートフォン（380px以下）
+========================================== */
+
+@media screen and (max-width: 380px) {
+
+    .main-title {
+        font-size: 1.4rem;
     }
 
-    
-footer {
-    width: 100%;
-    margin-top: 70px !important;
-    padding: 20px 12px !important;
-    box-sizing: border-box;
-}
-
-#social-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-#social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-}
-
-#social-icons img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-    .footer-links {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 14px;
-        font-size: 12px;
+    .sub-title {
+        font-size: 0.9rem;
     }
 
-    .copyright {
-        font-size: 11px;
-        text-align: center;
+    .submit-btn {
+        width: 85%;
     }
 
-}
-
-
-
-@media screen and (max-width: 600px) {
-
-    html,
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-        min-height: 0;
+    .access-section {
+        margin-top: 70px;
     }
 
-    header {
-        margin-top: 0 !important;
-        padding-top: 12px !important;
-        top: auto !important;
-        transform: none !important;
+    .phone-number {
+        font-size: 1.05rem;
     }
 
 }
