@@ -170,26 +170,36 @@ function showLoading() {
 
 
 // ========================================
-// チャット欄を一番下までスクロール
+// ページ全体を最新メッセージまでスクロール
 // ========================================
 
 function scrollChatToBottom() {
 
     if (!chatBox || chatBox.hidden) return;
 
-    syncChatLayout();
+    const scroll = () => {
+
+        const latestMessage = chatBox.lastElementChild;
+
+        if (!latestMessage) return;
+
+        latestMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "end"
+        });
+
+    };
 
     requestAnimationFrame(() => {
 
-        chatBox.scrollTop = chatBox.scrollHeight;
+        scroll();
 
         requestAnimationFrame(() => {
-
-            chatBox.scrollTop = chatBox.scrollHeight;
-
+            scroll();
         });
 
     });
+
 }
 
 
