@@ -317,6 +317,12 @@ function showResultScreen(result, fallbackReply = "") {
 
         return element;
     }
+    
+    // 結果画面のメインカードを生成
+    const overview = createElement(
+        "section",
+        "result-overview"
+    );
 
     // ========================================
     // 病気候補の取得とパーセンテージ処理
