@@ -855,7 +855,7 @@ body.result-mode {
    スマートフォン
 ======================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
     body {
         overflow: auto;
@@ -871,6 +871,16 @@ body.result-mode {
 
     .chat-box {
         margin-top: 54px;
+    }
+
+    #user-input {
+        font-size: 16px;
+    }
+
+    /* 基本情報フォーム */
+    .profile-field input,
+    .profile-field select {
+        font-size: 16px;
     }
 
     .profile-panel {
