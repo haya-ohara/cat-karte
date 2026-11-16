@@ -292,7 +292,7 @@ function updateProgress(finished) {
 }
 
 // ========================================
-// 結果画面の生成
+// 診断結果画面の生成
 // ========================================
 
 function showResultScreen(result, fallbackReply = "") {
@@ -302,7 +302,7 @@ function showResultScreen(result, fallbackReply = "") {
     resultContent.replaceChildren();
 
 
-    // HTML要素を生成する補助関数
+    // HTML要素生成用
     function createElement(tag, className, text) {
 
         const element = document.createElement(tag);
@@ -317,39 +317,32 @@ function showResultScreen(result, fallbackReply = "") {
 
         return element;
     }
-    
-    // 結果画面のメインカードを生成
-    const overview = createElement(
-        "section",
-        "result-overview"
-    );
+
 
     // ========================================
-    // 病気候補の取得とパーセンテージ処理
+    // パーセンテージの数値変換
     // ========================================
 
-    let diseases = Array.isArray(result.diseases)
-        ? [...result.diseases]
-        : [];
-
-
-    // パーセンテージを数値に変換
     function parsePercentage(value) {
 
-        if (typeof value === "number" && Number.isFinite(value)) {
+        if (
+            typeof value === "number" &&
+            Number.isFinite(value)
+        ) {
             return Math.max(0, Math.min(100, value));
         }
 
         if (typeof value === "string") {
 
-            // "90%"、"90"、"90.5%" などに対応
             const match = value.match(/\d+(?:\.\d+)?/);
 
             if (match) {
+
                 return Math.max(
                     0,
                     Math.min(100, Number(match[0]))
                 );
+
             }
         }
 
@@ -357,23 +350,16 @@ function showResultScreen(result, fallbackReply = "") {
     }
 
 
-    // 第1候補が一覧に含まれていない場合
-    if (
-        result.primary_disease &&
-        !diseases.some(d => d.name === result.primary_disease)
-    ) {
+    // ========================================
+    // 病気候補の取得
+    // ========================================
 
-        diseases.unshift({
-            name: result.primary_disease,
-            percentage: result.primary_percentage ?? null,
-            description: "",
-            treatment: result.primary_treatment || ""
-        });
-
-    }
+    let diseases = Array.isArray(result.diseases)
+        ? [...result.diseases]
+        : [];
 
 
-    // パーセンテージを正規化
+    // パーセンテージを整理
     diseases = diseases.map(disease => ({
 
         ...disease,
@@ -385,7 +371,7 @@ function showResultScreen(result, fallbackReply = "") {
     }));
 
 
-    // パーセンテージの高い順に並び替え
+    // パーセンテージ順に並び替え
     diseases.sort((a, b) => {
 
         if (a.parsedPercentage === null) return 1;
@@ -398,7 +384,108 @@ function showResultScreen(result, fallbackReply = "") {
 
 
     // ========================================
-    // 症状と病気候補
+    // 緊急度
+    // ========================================
+
+    const validUrgencies = ["安心", "注意", "危険"];
+
+    const urgency = validUrgencies.includes(result.urgency)
+        ? result.urgency
+        : "注意";
+
+
+    // ========================================
+    // メイン結果カード
+    // ========================================
+
+    const overview = createElement(
+        "section",
+        "result-overview"
+    );
+
+
+    // ----------------------------------------
+    // 緊急度表示
+    // ----------------------------------------
+
+    const urgencyBox = createElement(
+        "div",
+        "result-urgency"
+    );
+
+    urgencyBox.appendChild(
+        createElement("span", "", "緊急度：")
+    );
+
+    urgencyBox.appendChild(
+        createElement(
+            "span",
+            `result-urgency-dot result-urgency--${urgency}`
+        )
+    );
+
+    overview.appendChild(urgencyBox);
+
+
+    // ----------------------------------------
+    // 緊急度の凡例
+    // ----------------------------------------
+
+    const legend = createElement(
+        "div",
+        "urgency-legend"
+    );
+
+    const legendItems = [
+        { name: "安心", color: "#78cf63" },
+        { name: "注意", color: "#ffcb35" },
+        { name: "危険", color: "#ff633e" }
+    ];
+
+    legendItems.forEach(item => {
+
+        const legendItem = createElement(
+            "div",
+            "urgency-legend-item"
+        );
+
+        const dot = createElement(
+            "span",
+            "urgency-legend-dot"
+        );
+
+        dot.style.backgroundColor = item.color;
+
+        legendItem.appendChild(dot);
+
+        legendItem.appendChild(
+            createElement("span", "", item.name)
+        );
+
+        legend.appendChild(legendItem);
+
+    });
+
+    overview.appendChild(legend);
+
+
+    // ----------------------------------------
+    // 総合メッセージ
+    // ----------------------------------------
+
+    overview.appendChild(
+        createElement(
+            "p",
+            "result-message",
+            result.urgency_message ||
+            fallbackReply ||
+            "相談結果をご確認ください。"
+        )
+    );
+
+
+    // ========================================
+    // 症状と病気候補の2カラム
     // ========================================
 
     const columns = createElement(
@@ -407,9 +494,9 @@ function showResultScreen(result, fallbackReply = "") {
     );
 
 
-    // ========================================
-    // 症状
-    // ========================================
+    // ----------------------------------------
+    // 左側：症状
+    // ----------------------------------------
 
     const symptomSection = createElement(
         "section",
@@ -429,7 +516,7 @@ function showResultScreen(result, fallbackReply = "") {
         ? result.symptoms
         : [];
 
-    if (symptoms.length) {
+    if (symptoms.length > 0) {
 
         symptoms.forEach(symptom => {
 
@@ -452,9 +539,9 @@ function showResultScreen(result, fallbackReply = "") {
     columns.appendChild(symptomSection);
 
 
-    // ========================================
-    // 考えられる病気・パーセンテージ
-    // ========================================
+    // ----------------------------------------
+    // 右側：考えられる病気
+    // ----------------------------------------
 
     const diseaseSection = createElement(
         "section",
@@ -466,7 +553,6 @@ function showResultScreen(result, fallbackReply = "") {
     );
 
 
-    // グラフの色
     const graphColors = [
         "#72c968",
         "#b4c85e",
@@ -481,12 +567,12 @@ function showResultScreen(result, fallbackReply = "") {
             "result-disease-row"
         );
 
-        const name = disease.name || "候補";
-
         const percentage = disease.parsedPercentage;
 
+        const name = disease.name || "候補";
 
-        // 病名とパーセンテージ
+
+        // 病名と割合
         const heading = createElement(
             "div",
             "result-disease-heading"
@@ -499,7 +585,7 @@ function showResultScreen(result, fallbackReply = "") {
         row.appendChild(heading);
 
 
-        // パーセンテージのグラフ
+        // 横棒グラフ
         if (percentage !== null) {
 
             const track = createElement(
@@ -528,17 +614,18 @@ function showResultScreen(result, fallbackReply = "") {
     });
 
 
-    if (!diseases.length) {
+    if (diseases.length === 0) {
 
         diseaseSection.appendChild(
             createElement(
                 "p",
                 "",
-                "病気の候補はありません。"
+                "考えられる病気は提示されていません。"
             )
         );
 
     }
+
 
     columns.appendChild(diseaseSection);
 
@@ -548,7 +635,7 @@ function showResultScreen(result, fallbackReply = "") {
 
 
     // ========================================
-    // 下部の詳細情報カード
+    // 下部：病気の詳細情報カード
     // ========================================
 
     const details = createElement(
@@ -564,18 +651,47 @@ function showResultScreen(result, fallbackReply = "") {
         )
     );
 
+
     const detailsGrid = createElement(
         "div",
         "result-details-grid"
     );
 
-    diseases.forEach(disease => {
+
+    // 詳細表示用の病気リスト
+    let detailDiseases = [...diseases];
+
+
+    // 第1候補が詳細リストに含まれていない場合
+    if (
+        result.primary_disease &&
+        !detailDiseases.some(
+            d => d.name === result.primary_disease
+        )
+    ) {
+
+        detailDiseases.unshift({
+
+            name: result.primary_disease,
+
+            description: "",
+
+            treatment: result.primary_treatment || ""
+
+        });
+
+    }
+
+
+    detailDiseases.forEach(disease => {
 
         const item = createElement(
             "article",
             "result-detail-item"
         );
 
+
+        // 病名
         item.appendChild(
             createElement(
                 "h3",
@@ -584,6 +700,8 @@ function showResultScreen(result, fallbackReply = "") {
             )
         );
 
+
+        // 詳細
         item.appendChild(
             createElement(
                 "p",
@@ -592,6 +710,8 @@ function showResultScreen(result, fallbackReply = "") {
             )
         );
 
+
+        // 対処法
         item.appendChild(
             createElement(
                 "p",
@@ -600,14 +720,19 @@ function showResultScreen(result, fallbackReply = "") {
             )
         );
 
+
         detailsGrid.appendChild(item);
 
     });
 
+
     details.appendChild(detailsGrid);
 
 
+    // ----------------------------------------
     // 注意書き
+    // ----------------------------------------
+
     details.appendChild(
         createElement(
             "p",
@@ -616,30 +741,26 @@ function showResultScreen(result, fallbackReply = "") {
         )
     );
 
+
     resultContent.appendChild(details);
 
 
     // ========================================
-    // 画面切り替え
+    // チャット画面から結果画面へ切り替え
     // ========================================
 
-    // チャットを非表示
     chatPage.hidden = true;
 
     chatControls.hidden = true;
 
-    // 結果画面を表示
     resultScreen.hidden = false;
 
-    // ページスクロールに切り替え
     document.body.classList.remove("chat-mode");
 
     document.body.classList.add("result-mode");
 
-    // 進捗を結果にする
     updateProgress(true);
 
-    // ページ先頭へ
     window.scrollTo({
         top: 0,
         behavior: "auto"
