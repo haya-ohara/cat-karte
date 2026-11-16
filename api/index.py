@@ -147,22 +147,41 @@ result: null
 【診断終了時】
 
 is_finished: true
-reply: 結果を知らせる短い文章
-templates: []
+
+reply:
+結果を知らせる短い文章
+
+templates:
+必ず空配列 []
+
 result:
-- urgency: 安心、注意、危険
+以下の情報を必ず含めてください。
+
+- urgency: 安心、注意、危険のいずれか
 - urgency_message: 総合メッセージ
 - symptoms: 症状のリスト
 - primary_disease: 最も考えられる病気
 - primary_treatment: 対応方法
-- diseases:
-    - name
-    - percentage
-    - description
-    - treatment
 
-percentageは医学的に確立された診断確率ではなく、
-参考上の目安として扱う。
+- diseases:
+    2〜3個の病気候補を必ず提示する。
+
+    各候補には次の4項目を必ず含める。
+
+    - name: 病名
+    - percentage: 0〜100の数値
+    - description: 病気の説明
+    - treatment: 対処方法
+
+【パーセンテージの重要ルール】
+
+1. すべての病気候補にpercentageを必ず設定する。
+2. percentageは数値型で返す。
+3. "90%" のような文字列ではなく、90のような数値にする。
+4. 0〜100の範囲で設定する。
+5. 候補の可能性を比較するためのAIによる参考スコアとする。
+6. 医学的に検証された発症確率として表現しない。
+7. 症状情報が不足している場合は、その不確実性を考慮する。
 
 必ずJSONのみで返答する。
 
