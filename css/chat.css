@@ -483,136 +483,6 @@ button,input {
     cursor: wait;
 }
 
-
-/* ========================================
-   スマートフォン
-======================================== */
-
-@media (max-width: 600px) {
-
-    body {
-        overflow: auto;
-    }
-
-    .chat-page {
-        width: calc(100% - 28px);
-        height: 100dvh;
-        min-height: 0;
-
-        padding-top: 18px;
-    }
-
-    .chat-box {
-        margin-top: 54px;
-    }
-
-    .profile-panel {
-        margin-top: 65px;
-        padding: 20px;
-    }
-
-    .profile-panel h2 {
-        font-size: 18px;
-    }
-
-    .chat-controls {
-        width: calc(100% - 28px);
-    }
-
-    .options-container {
-        gap: 8px;
-        max-height: 30dvh;
-    }
-
-    .option-btn {
-        min-height: 42px;
-        padding: 9px 14px;
-        font-size: 13px;
-    }
-
-    
-    body:not(.chat-mode) {
-        height: auto;
-        min-height: 100dvh;
-        overflow-y: auto;
-    }
-
-    .progress {
-        width: 80%;
-    }
-
-    .result-screen {
-        width: calc(100% - 60px);
-        margin: 8px auto 35px;
-    }
-
-    .result-screen > h1 {
-        margin: 10px 0 15px;
-        font-size: 22px;
-    }
-
-    .result-overview,
-    .result-details {
-        padding: 22px 18px;
-        border-radius: 28px;
-    }
-
-    .result-urgency {
-        font-size: 19px;
-    }
-
-    .urgency-legend {
-        gap: 30px;
-        margin-bottom: 28px;
-    }
-
-    .result-message {
-        margin: 24px auto 32px;
-        font-size: 16px;
-        line-height: 1.7;
-    }
-
-    /* 症状と病気を縦並びにする */
-    .result-columns {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-
-    .result-section h2 {
-        font-size: 17px;
-        margin-bottom: 16px;
-    }
-
-    .result-symptoms li {
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-
-    .result-disease-row {
-        margin-bottom: 22px;
-    }
-
-    .result-disease-heading {
-        font-size: 12px;
-    }
-
-    /* 詳細は1列 */
-    .result-details-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .result-detail-item h3 {
-        font-size: 14px;
-    }
-
-    .result-detail-item p {
-        font-size: 11px;
-    }
-}
-
-
-
 /* ========================================
    チャット・フォーム・結果の表示切替
 ======================================== */
@@ -900,3 +770,133 @@ body.result-mode {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
+
+/* ========================================
+   スマートフォン
+======================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .chat-page {
+        width: calc(100% - 28px);
+        height: 100dvh;
+        min-height: 0;
+
+        padding-top: 18px;
+    }
+
+    .chat-box {
+        margin-top: 54px;
+    }
+
+    .profile-panel {
+        margin-top: 65px;
+        padding: 20px;
+    }
+
+    .profile-panel h2 {
+        font-size: 18px;
+    }
+
+    .chat-controls {
+        width: calc(100% - 28px);
+    }
+
+    .options-container {
+        gap: 8px;
+        max-height: 30dvh;
+    }
+
+    .option-btn {
+        min-height: 42px;
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    
+    body:not(.chat-mode) {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+    }
+
+    .progress {
+        width: 80%;
+    }
+
+    .result-screen {
+        width: calc(100% - 60px);
+        margin: 8px auto 35px;
+    }
+
+    .result-screen > h1 {
+        margin: 10px 0 15px;
+        font-size: 22px;
+    }
+
+    .result-overview,
+    .result-details {
+        padding: 22px 18px;
+        border-radius: 28px;
+    }
+
+    .result-urgency {
+        font-size: 19px;
+    }
+
+    .urgency-legend {
+        gap: 30px;
+        margin-bottom: 28px;
+    }
+
+    .result-message {
+        margin: 24px auto 32px;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* 症状と病気を縦並びにする */
+    .result-columns {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .result-section h2 {
+        font-size: 17px;
+        margin-bottom: 16px;
+    }
+
+    .result-symptoms li {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .result-disease-row {
+        margin-bottom: 22px;
+    }
+
+    .result-disease-heading {
+        font-size: 12px;
+    }
+
+    /* 詳細は1列 */
+    .result-details-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .result-detail-item h3 {
+        font-size: 14px;
+    }
+
+    .result-detail-item p {
+        font-size: 11px;
+    }
+}
+
