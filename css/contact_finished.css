@@ -20,7 +20,7 @@ body {
 .contact-wrapper {
     width: 100%;
     max-width: 650px;
-    margin: 0 auto; /* ←これで完全に真ん中に固定されます */
+    margin: 100px auto 0; /* ←これで完全に真ん中に固定されます */
     text-align: left; /* 中身のデフォルトは左揃え */
 }
 
@@ -99,7 +99,7 @@ body {
     justify-content: center; /* 確実に真ん中に配置 */
     align-items: center;
     width: 100%;
-    margin-top: 70px;       /* 下にしっかり空白を開ける */
+    margin: 50px auto;       /* 下にしっかり空白を開ける */
 }
 
 .home-btn {

@@ -429,7 +429,7 @@ button,input {
 
 .profile-field label {
     color: var(--text);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -447,7 +447,7 @@ button,input {
     border-radius: 12px;
 
     outline: none;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .profile-field input:focus,
@@ -904,7 +904,7 @@ body.result-mode {
     .option-btn {
         min-height: 42px;
         padding: 9px 14px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
     
@@ -1006,7 +1006,7 @@ body.result-mode {
 
     body.chat-mode .message {
         max-width: 90%;
-        font-size: 15px;
+        font-size: 16px;
     }
 }
 
