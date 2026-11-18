@@ -18,6 +18,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+    min-height: 100%;
     margin: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -58,7 +59,7 @@ button,input {
 .progress {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1;
 
     display: flex;
     justify-content: space-between;
@@ -428,7 +429,7 @@ button,input {
 
 .profile-field label {
     color: var(--text);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -446,7 +447,7 @@ button,input {
     border-radius: 12px;
 
     outline: none;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .profile-field input:focus,
@@ -483,136 +484,6 @@ button,input {
     cursor: wait;
 }
 
-
-/* ========================================
-   スマートフォン
-======================================== */
-
-@media (max-width: 600px) {
-
-    body {
-        overflow: auto;
-    }
-
-    .chat-page {
-        width: calc(100% - 28px);
-        height: 100dvh;
-        min-height: 0;
-
-        padding-top: 18px;
-    }
-
-    .chat-box {
-        margin-top: 54px;
-    }
-
-    .profile-panel {
-        margin-top: 65px;
-        padding: 20px;
-    }
-
-    .profile-panel h2 {
-        font-size: 18px;
-    }
-
-    .chat-controls {
-        width: calc(100% - 28px);
-    }
-
-    .options-container {
-        gap: 8px;
-        max-height: 30dvh;
-    }
-
-    .option-btn {
-        min-height: 42px;
-        padding: 9px 14px;
-        font-size: 13px;
-    }
-
-    
-    body:not(.chat-mode) {
-        height: auto;
-        min-height: 100dvh;
-        overflow-y: auto;
-    }
-
-    .progress {
-        width: 80%;
-    }
-
-    .result-screen {
-        width: calc(100% - 60px);
-        margin: 8px auto 35px;
-    }
-
-    .result-screen > h1 {
-        margin: 10px 0 15px;
-        font-size: 22px;
-    }
-
-    .result-overview,
-    .result-details {
-        padding: 22px 18px;
-        border-radius: 28px;
-    }
-
-    .result-urgency {
-        font-size: 19px;
-    }
-
-    .urgency-legend {
-        gap: 30px;
-        margin-bottom: 28px;
-    }
-
-    .result-message {
-        margin: 24px auto 32px;
-        font-size: 16px;
-        line-height: 1.7;
-    }
-
-    /* 症状と病気を縦並びにする */
-    .result-columns {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-
-    .result-section h2 {
-        font-size: 17px;
-        margin-bottom: 16px;
-    }
-
-    .result-symptoms li {
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-
-    .result-disease-row {
-        margin-bottom: 22px;
-    }
-
-    .result-disease-heading {
-        font-size: 12px;
-    }
-
-    /* 詳細は1列 */
-    .result-details-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .result-detail-item h3 {
-        font-size: 14px;
-    }
-
-    .result-detail-item p {
-        font-size: 11px;
-    }
-}
-
-
-
 /* ========================================
    チャット・フォーム・結果の表示切替
 ======================================== */
@@ -635,28 +506,105 @@ button,input {
 /* チャット中はページを固定 */
 body.chat-mode {
     width: 100%;
-    height: 100dvh;
-    min-height: 0;
+    height: auto;
+    min-height: 100dvh;
 
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body.chat-mode .chat-page {
-    height: calc(100dvh - 50px);
-    min-height: 0;
+    display: flex;
+    flex-direction: column;
 
-    padding: 20px 0
-        calc(var(--controls-space, 180px) + 10px);
+    width: min(760px, calc(100% - 40px));
+    max-width: 100%;
 
-    overflow: hidden;
+    height: auto;
+    min-height: calc(100dvh - 50px);
+
+    margin: 0 auto;
+
+    /*
+      下部の固定入力欄と重ならないようにする
+    */
+    padding:
+        20px 0
+        calc(var(--controls-space, 180px) + 30px);
+
+    overflow: visible;
+
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
 }
 
 body.chat-mode .chat-box {
-    flex: 1 1 0;
-    height: 0;
+    display: flex;
+    flex: 0 0 auto;
+
+    flex-direction: column;
+
+    /* 適度な横幅を維持 */
+    width: min(680px, 100%);
+    max-width: 100%;
+
+    /* 高さを固定しない */
+    height: auto;
     min-height: 0;
-    margin: 84px auto 0;
+    max-height: none;
+
+    margin: 84px auto 30px;
+    padding: 0 8px 20px;
+
+    /* 専用スクロールを解除 */
+    overflow: visible;
+
+    /* スクロールバーを非表示 */
+    scrollbar-width: none;
+
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
 }
+
+body.chat-mode .message {
+     width: fit-content;
+    max-width: 82%;
+
+    margin-bottom: 20px;
+    padding: 11px 22px;
+
+    flex-shrink: 0;
+}
+
+body.chat-mode .chat-box::-webkit-scrollbar {
+    display: none;
+}
+
+body.chat-mode .message--ai {
+    align-self: flex-start;
+}
+
+body.chat-mode .message--user {
+    align-self: flex-end;
+}
+
+body.chat-mode .chat-controls {
+    position: fixed;
+
+    bottom: max(20px, env(safe-area-inset-bottom));
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(512px, calc(100% - 32px));
+
+    z-index: 100;
+}
+
 
 
 /* ========================================
@@ -806,13 +754,14 @@ body.chat-mode .chat-box {
 }
 
 .result-disease-heading {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
+    display: block;
 
     margin-bottom: 5px;
 
     font-size: 12px;
+    line-height: 1.5;
+
+    color: #30271f;
 }
 
 .result-disease-heading strong {
@@ -830,14 +779,13 @@ body.chat-mode .chat-box {
     overflow: hidden;
 
     background: #dedbd4;
+
     border-radius: 10px;
 }
 
 .result-progress-fill {
     height: 100%;
-    width: 0;
 
-    background: #74c967;
     border-radius: 10px;
 
     transition: width 0.5s ease;
@@ -900,3 +848,165 @@ body.result-mode {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
+
+/* ========================================
+   スマートフォン
+======================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .chat-page {
+        width: calc(100% - 28px);
+        height: 100dvh;
+        min-height: 0;
+
+        padding-top: 18px;
+    }
+
+    .chat-box {
+        margin-top: 54px;
+    }
+
+    #user-input {
+        font-size: 16px;
+    }
+
+    /* 基本情報フォーム */
+    .profile-field input,
+    .profile-field select {
+        font-size: 16px;
+    }
+
+    .profile-panel {
+        margin-top: 65px;
+        padding: 20px;
+    }
+
+    .profile-panel h2 {
+        font-size: 18px;
+    }
+
+    .chat-controls {
+        width: calc(100% - 28px);
+    }
+
+    .options-container {
+        gap: 8px;
+        max-height: 30dvh;
+    }
+
+    .option-btn {
+        min-height: 42px;
+        padding: 9px 14px;
+        font-size: 16px;
+    }
+
+    
+    body:not(.chat-mode) {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+    }
+
+    .progress {
+        width: 80%;
+    }
+
+    .result-screen {
+        width: calc(100% - 60px);
+        margin: 8px auto 35px;
+    }
+
+    .result-screen > h1 {
+        margin: 10px 0 15px;
+        font-size: 22px;
+    }
+
+    .result-overview,
+    .result-details {
+        padding: 22px 18px;
+        border-radius: 28px;
+    }
+
+    .result-urgency {
+        font-size: 19px;
+    }
+
+    .urgency-legend {
+        gap: 30px;
+        margin-bottom: 28px;
+    }
+
+    .result-message {
+        margin: 24px auto 32px;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* 症状と病気を縦並びにする */
+    .result-columns {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .result-section h2 {
+        font-size: 17px;
+        margin-bottom: 16px;
+    }
+
+    .result-symptoms li {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .result-disease-row {
+        margin-bottom: 22px;
+    }
+
+    .result-disease-heading {
+        font-size: 12px;
+    }
+
+    /* 詳細は1列 */
+    .result-details-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .result-detail-item h3 {
+        font-size: 14px;
+    }
+
+    .result-detail-item p {
+        font-size: 11px;
+    }
+
+
+    body.chat-mode .chat-page {
+        width: 100%;
+        height: 100dvh;
+
+        padding:
+            18px 14px
+            calc(var(--controls-space, 180px) + 15px);
+    }
+
+    body.chat-mode .chat-box {
+        width: 100%;
+
+        margin-top: 54px;
+        padding: 0 4px 20px;
+    }
+
+    body.chat-mode .message {
+        max-width: 90%;
+        font-size: 16px;
+    }
+}
+
