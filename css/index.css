@@ -257,15 +257,15 @@
         /* line-height: 1.8;
         margin-bottom: 15px;
         padding-bottom: 5px; */
+        
+        text-shadow: 3px 3px 10px #000;
     }
 
     .hero-title {
-        /* display: inline-block;
-        max-width: 100%; */
 
         font-size: clamp(35px, 10vw, 48px);
-        /* line-height: 1.4;
-        letter-spacing: .08em; */
+        
+        text-shadow: 3px 3px 10px #000;
     }
 
 
