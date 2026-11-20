@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const foodList = document.getElementById("food-list");
     const resultCount = document.getElementById("result-count");
     const resultsTitle = document.getElementById("results-title");
+    const resultSection = document.getElementById("food-result-section");
     const categoryButtons = document.querySelectorAll(".category-button");
     const keywordButtons = document.querySelectorAll(".keyword-chip");
 
@@ -98,17 +99,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         parent.appendChild(p);
     }
 
-    searchForm.addEventListener("submit", event => {
-        event.preventDefault();
-        currentKeyword = searchBox.value;
-        renderFoods();
-    });
+    function scrollToResults() {
+        if (!resultSection) return;
+        resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
+    // 入力中はリアルタイムで絞り込みのみ行う（スクロールはしない）
     searchBox.addEventListener("input", () => {
         currentKeyword = searchBox.value;
         renderFoods();
     });
 
+    // Enterキーまたは検索ボタンで検索して結果欄へ移動
+    searchForm.addEventListener("submit", event => {
+        event.preventDefault();
+        currentKeyword = searchBox.value;
+        renderFoods();
+        scrollToResults();
+    });
+
+    // カテゴリー切り替え時は絞り込みのみ行う
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
             selectedCategory = button.dataset.category;
@@ -117,12 +127,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    // 人気キーワードは入力欄へ反映＋検索＋結果欄へ移動
     keywordButtons.forEach(button => {
         button.addEventListener("click", () => {
             searchBox.value = button.dataset.keyword;
             currentKeyword = button.dataset.keyword;
             renderFoods();
-            document.getElementById("food-result-section").scrollIntoView({ behavior: "smooth", block: "start" });
+            scrollToResults();
         });
     });
 });
