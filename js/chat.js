@@ -117,6 +117,30 @@ controlsObserver.observe(chatControls);
 
 window.addEventListener("resize", syncChatLayout);
 
+// Mobile browsers may keep the layout viewport unchanged when the keyboard
+// opens. Track the visible viewport so the fixed composer stays above it.
+function syncKeyboardOffset() {
+    if (!window.visualViewport || !chatPage) return;
+
+    const viewport = window.visualViewport;
+    const keyboardOffset = Math.max(
+        0,
+        window.innerHeight - viewport.height - viewport.offsetTop
+    );
+
+    chatPage.style.setProperty(
+        "--keyboard-inset-bottom",
+        `${Math.ceil(keyboardOffset)}px`
+    );
+}
+
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", syncKeyboardOffset);
+    window.visualViewport.addEventListener("scroll", syncKeyboardOffset);
+    window.addEventListener("resize", syncKeyboardOffset);
+    syncKeyboardOffset();
+}
+
 // ========================================
 // メッセージを画面に追加
 // ========================================
