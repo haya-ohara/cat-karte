@@ -345,3 +345,15 @@
 }
 
 .food-badge.unknown { background: #ece9e5; color: #665f58; }
+
+
+/* 検索結果へ移動したとき、固定ヘッダーに見出しが隠れないようにする */
+#food-result-section {
+    scroll-margin-top: 110px;
+}
+
+@media (max-width: 768px) {
+    #food-result-section {
+        scroll-margin-top: 90px;
+    }
+}
