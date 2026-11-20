@@ -123,15 +123,21 @@ function syncKeyboardOffset() {
     if (!window.visualViewport || !chatPage) return;
 
     const viewport = window.visualViewport;
-    const keyboardOffset = Math.max(
-        0,
-        window.innerHeight - viewport.height - viewport.offsetTop
-    );
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        const controlsHeight = chatControls.getBoundingClientRect().height;
+        const safeGap = 8;
+        const controlsTop = Math.max(
+            viewport.offsetTop + safeGap,
+            viewport.offsetTop + viewport.height - controlsHeight - safeGap
+        );
 
-    chatPage.style.setProperty(
-        "--keyboard-inset-bottom",
-        `${Math.ceil(keyboardOffset)}px`
-    );
+        chatPage.style.setProperty(
+            "--chat-controls-top",
+            `${Math.round(controlsTop)}px`
+        );
+    } else {
+        chatPage.style.removeProperty("--chat-controls-top");
+    }
 }
 
 if (window.visualViewport) {
