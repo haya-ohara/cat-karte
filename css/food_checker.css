@@ -1,0 +1,347 @@
+/* 食べ物安全チェッカー専用CSS */
+.food-main {
+    width: min(900px, calc(100% - 40px));
+    margin: 38px auto 70px;
+    color: #3e3e3e;
+}
+
+.food-hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.food-eyebrow {
+    margin: 0 0 8px;
+    color: #b58b68;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.food-hero h1 {
+    margin: 0;
+    color: #8c6a51;
+    font-size: clamp(1.65rem, 4vw, 2.25rem);
+}
+
+.food-lead {
+    margin: 12px 0 0;
+    color: #806b59;
+    line-height: 1.9;
+}
+
+.food-search-panel,
+.food-categories,
+.food-results {
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    padding: 25px 28px;
+    border: 1px solid #ead8c4;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .76);
+    box-shadow: 0 5px 16px rgba(105, 75, 48, .045);
+}
+
+.food-search-panel h2,
+.food-categories h2,
+.results-heading h2 {
+    margin: 0 0 16px;
+    color: #8c6a51;
+    font-size: 1.2rem;
+}
+
+.food-search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.food-search-form input {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    border: 2px solid #e2cbb3;
+    border-radius: 30px;
+    outline: none;
+    background: #fff;
+    color: #594838;
+    font: inherit;
+}
+
+.food-search-form input:focus {
+    border-color: #b58b68;
+    box-shadow: 0 0 0 3px rgba(181, 139, 104, .15);
+}
+
+.food-search-form button {
+    padding: 12px 25px;
+    border: 0;
+    border-radius: 30px;
+    background: #8c6a51;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.food-search-form button:hover {
+    background: #73543f;
+    transform: translateY(-1px);
+}
+
+.search-hint {
+    margin: 8px 0 18px;
+    color: #a18a75;
+    font-size: .82rem;
+}
+
+.popular-searches {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.popular-searches > span {
+    margin-right: 4px;
+    color: #806b59;
+    font-size: .86rem;
+}
+
+.keyword-chip,
+.category-button {
+    padding: 7px 14px;
+    border: 1px solid #e2cbb3;
+    border-radius: 22px;
+    background: #fffaf3;
+    color: #8c6a51;
+    font: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.keyword-chip:hover,
+.category-button:hover,
+.category-button.is-active {
+    border-color: #8c6a51;
+    background: #8c6a51;
+    color: #fff;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.results-heading h2 {
+    margin-bottom: 15px;
+}
+
+.result-count {
+    color: #a18a75;
+    font-size: .85rem;
+}
+
+.food-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.food-card {
+    overflow: hidden;
+    border: 1px solid #ead8c4;
+    border-radius: 13px;
+    background: #fffdf9;
+}
+
+.food-card summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 17px;
+    color: #4a4038;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+}
+
+.food-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.food-card summary::after {
+    content: "＋";
+    color: #9b795d;
+    font-size: 1.1rem;
+}
+
+.food-card[open] summary::after {
+    content: "－";
+}
+
+.food-card summary:hover {
+    background: #fff8ef;
+}
+
+.food-card-name {
+    overflow-wrap: anywhere;
+}
+
+.food-badge {
+    flex: 0 0 auto;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .76rem;
+    font-weight: 700;
+}
+
+.food-badge.danger {
+    background: #fbe5e2;
+    color: #a83f36;
+}
+
+.food-badge.caution {
+    background: #fff0d6;
+    color: #94621b;
+}
+
+.food-badge.safe {
+    background: #e7f2e5;
+    color: #477447;
+}
+
+.food-card-content {
+    padding: 0 17px 17px;
+    border-top: 1px dotted #dec9b2;
+    color: #62574d;
+    font-size: .91rem;
+    line-height: 1.75;
+}
+
+.food-card-content p {
+    margin: 12px 0 0;
+}
+
+.food-card-content strong {
+    color: #8c6a51;
+}
+
+.food-card-content .food-action {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #fff3e5;
+}
+
+.loading-message,
+.empty-message {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 25px 10px;
+    color: #8c7866;
+    text-align: center;
+}
+
+.food-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 28px 0 15px;
+    padding: 22px 24px;
+    border: 1px solid #e8c9a9;
+    border-radius: 15px;
+    background: #fff5e9;
+}
+
+.warning-mark {
+    display: grid;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 50%;
+    background: #b9793e;
+    color: #fff;
+    font-weight: 700;
+}
+
+.food-warning h2 {
+    margin: 0 0 7px;
+    color: #8c5f37;
+    font-size: 1.05rem;
+}
+
+.food-warning p {
+    margin: 0;
+    color: #6e5b49;
+    font-size: .9rem;
+    line-height: 1.8;
+}
+
+.food-disclaimer {
+    margin: 0;
+    color: #978674;
+    font-size: .78rem;
+    line-height: 1.7;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 768px) {
+    .food-main {
+        width: min(100% - 28px, 600px);
+        margin-top: 25px;
+    }
+
+    .food-search-panel,
+    .food-categories,
+    .food-results {
+        padding: 20px 17px;
+    }
+
+    .food-list {
+        grid-template-columns: 1fr;
+    }
+
+    .food-search-form {
+        flex-direction: column;
+    }
+
+    .food-search-form button {
+        width: 100%;
+    }
+
+    .food-warning {
+        padding: 18px 16px;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 22px;
+        padding: 0 15px;
+    }
+}
+
+.food-badge.unknown { background: #ece9e5; color: #665f58; }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="猫が食べても大丈夫な食べ物か確認できる食べ物安全チェッカーです。">
+    <title>ねこカルテ - 食べ物安全チェッカー</title>
+    <link rel="stylesheet" href="css/food_checker.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/shared/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/shared/アイコン.png" alt="ねこカルテ">
+        </a>
+        <div class="header-nav-container">
+            <nav aria-label="メインナビゲーション">
+                <ul>
+                    <li><a href="disease_list.html">病気一覧</a></li>
+                    <li><a href="food_checker.html" aria-current="page">食べ物チェッカー</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <img src="img/shared/ネコ線.png" alt="" class="nav-cat-img">
+        </div>
+    </header>
+
+    <main class="food-main">
+        <section class="food-hero">
+            <p class="food-eyebrow">CAT FOOD SAFETY</p>
+            <h1>食べ物安全チェッカー</h1>
+            <p class="food-lead">これ、猫が食べても大丈夫？<br>食べ物の名前から安全性を確認してみよう。</p>
+        </section>
+
+        <section class="food-search-panel" aria-labelledby="search-title">
+            <h2 id="search-title">食べ物を検索</h2>
+            <form id="food-search-form" class="food-search-form">
+                <label class="sr-only" for="food-search-box">食べ物の名前</label>
+                <input id="food-search-box" type="search" placeholder="例：チョコレート、鶏肉、牛乳" autocomplete="off">
+                <button type="submit">検索する</button>
+            </form>
+            <p class="search-hint">食材名や別名で検索できます</p>
+            <div class="popular-searches" aria-label="人気の検索">
+                <span>よく検索される食べ物</span>
+                <button type="button" class="keyword-chip" data-keyword="チョコレート">チョコレート</button>
+                <button type="button" class="keyword-chip" data-keyword="玉ねぎ">玉ねぎ</button>
+                <button type="button" class="keyword-chip" data-keyword="牛乳">牛乳</button>
+                <button type="button" class="keyword-chip" data-keyword="鶏肉">鶏肉</button>
+            </div>
+        </section>
+
+        <section class="food-categories" aria-labelledby="category-title">
+            <h2 id="category-title">カテゴリーから探す</h2>
+            <div class="category-buttons">
+                <button type="button" class="category-button is-active" data-category="all">すべて</button>
+                <button type="button" class="category-button" data-category="danger">危険な食べ物</button>
+                <button type="button" class="category-button" data-category="caution">注意が必要</button>
+                <button type="button" class="category-button" data-category="safe">条件付きで食べられる</button>
+                <button type="button" class="category-button" data-category="unknown">情報不足</button>
+            </div>
+        </section>
+
+        <section id="food-result-section" class="food-results" aria-live="polite">
+            <div class="results-heading">
+                <h2 id="results-title">食べ物一覧</h2>
+                <span id="result-count" class="result-count"></span>
+            </div>
+            <div id="food-list" class="food-list">
+                <p class="loading-message">食べ物データを読み込んでいます...</p>
+            </div>
+        </section>
+
+        <aside class="food-warning">
+            <div class="warning-mark" aria-hidden="true">!</div>
+            <div>
+                <h2>誤って食べてしまったら</h2>
+                <p>危険な食べ物を口にした可能性がある場合は、症状がなくても、食べた物・量・時間を確認して、すぐに動物病院へ連絡してください。自己判断で吐かせたりせず、獣医師の指示に従いましょう。</p>
+            </div>
+        </aside>
+
+        <p class="food-disclaimer">※このページは一般的な情報を提供するもので、獣医師による診断・治療の代わりにはなりません。食材の種類、調理方法、摂取量、猫の体質によってリスクは異なります。</p>
+    </main>
+
+    <footer>
+        <div id="social-icons">
+            <a href="#" aria-label="Twitter"><img src="img/shared/twitter-icon.png" alt="Twitter"></a>
+            <a href="#" aria-label="Instagram"><img src="img/shared/instagram-icon.png" alt="Instagram"></a>
+            <a href="#" aria-label="YouTube"><img src="img/shared/youtube-icon.png" alt="YouTube"></a>
+            <a href="#" aria-label="Facebook"><img src="img/shared/facebook-icon.png" alt="Facebook"></a>
+            <a href="#" aria-label="TikTok"><img src="img/shared/tiktok-icon.png" alt="TikTok"></a>
+        </div>
+        <div class="footer-links">
+            <a href="disease_list.html">病気一覧</a>
+            <a href="food_checker.html">食べ物チェッカー</a>
+            <a href="contact.html">お問い合わせ</a>
+            <a href="riyoukiyaku.html">利用規約</a>
+        </div>
+        <p class="copyright">&copy;okaki. All Rights Reserved</p>
+    </footer>
+
+    <script src="js/food_checker.js"></script>
+</body>
+</html>
