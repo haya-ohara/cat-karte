@@ -595,7 +595,7 @@ body.chat-mode .message--user {
 body.chat-mode .chat-controls {
     position: fixed;
 
-    bottom: max(20px, env(safe-area-inset-bottom));
+    bottom: calc(max(20px, env(safe-area-inset-bottom)) + var(--keyboard-inset-bottom, 0px));
 
     left: 50%;
     transform: translateX(-50%);
@@ -1002,6 +1002,10 @@ body.result-mode {
 
         margin-top: 54px;
         padding: 0 4px 20px;
+    }
+
+    body.chat-mode .chat-controls {
+        bottom: calc(max(8px, env(safe-area-inset-bottom)) + var(--keyboard-inset-bottom, 0px));
     }
 
     body.chat-mode .message {
