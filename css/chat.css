@@ -1005,7 +1005,8 @@ body.result-mode {
     }
 
     body.chat-mode .chat-controls {
-        bottom: calc(max(8px, env(safe-area-inset-bottom)) + var(--keyboard-inset-bottom, 0px));
+        top: var(--chat-controls-top, auto);
+        bottom: auto;
     }
 
     body.chat-mode .message {
