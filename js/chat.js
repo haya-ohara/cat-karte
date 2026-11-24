@@ -105,6 +105,7 @@ function syncChatLayout() {
 const controlsObserver = new ResizeObserver(() => {
 
     syncChatLayout();
+    scheduleKeyboardOffset();
 
     if (!chatBox.hidden) {
         requestAnimationFrame(scrollChatToBottom);
@@ -117,34 +118,47 @@ controlsObserver.observe(chatControls);
 
 window.addEventListener("resize", syncChatLayout);
 
-// Mobile browsers may keep the layout viewport unchanged when the keyboard
-// opens. Track the visible viewport so the fixed composer stays above it.
+let keyboardOffsetFrame = null;
+
+// On mobile, the visual viewport can move independently while the keyboard is
+// open. Keep the composer at the visual viewport's bottom in document space.
 function syncKeyboardOffset() {
-    if (!window.visualViewport || !chatPage) return;
+    if (!window.visualViewport || !chatControls) return;
 
     const viewport = window.visualViewport;
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        const controlsHeight = chatControls.getBoundingClientRect().height;
-        const safeGap = 8;
-        const controlsTop = Math.max(
-            viewport.offsetTop + safeGap,
-            viewport.offsetTop + viewport.height - controlsHeight - safeGap
-        );
 
-        chatPage.style.setProperty(
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        const gap = 8;
+        const controlsHeight = chatControls.getBoundingClientRect().height;
+        const top = window.scrollY + viewport.offsetTop + viewport.height
+            - controlsHeight - gap;
+
+        document.documentElement.style.setProperty(
             "--chat-controls-top",
-            `${Math.round(controlsTop)}px`
+            `${Math.max(gap, Math.round(top))}px`
         );
     } else {
-        chatPage.style.removeProperty("--chat-controls-top");
+        document.documentElement.style.removeProperty("--chat-controls-top");
     }
 }
 
+function scheduleKeyboardOffset() {
+    if (keyboardOffsetFrame !== null) return;
+
+    keyboardOffsetFrame = requestAnimationFrame(() => {
+        keyboardOffsetFrame = null;
+        syncKeyboardOffset();
+    });
+}
+
 if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", syncKeyboardOffset);
-    window.visualViewport.addEventListener("scroll", syncKeyboardOffset);
-    window.addEventListener("resize", syncKeyboardOffset);
-    syncKeyboardOffset();
+    window.visualViewport.addEventListener("resize", scheduleKeyboardOffset);
+    window.visualViewport.addEventListener("scroll", scheduleKeyboardOffset);
+    window.addEventListener("resize", scheduleKeyboardOffset);
+    window.addEventListener("scroll", scheduleKeyboardOffset, { passive: true });
+    userInput.addEventListener("focus", scheduleKeyboardOffset);
+    userInput.addEventListener("blur", scheduleKeyboardOffset);
+    scheduleKeyboardOffset();
 }
 
 // ========================================
@@ -207,28 +221,9 @@ function scrollChatToBottom() {
 
     if (!chatBox || chatBox.hidden) return;
 
-    const scroll = () => {
-
-        const latestMessage = chatBox.lastElementChild;
-
-        if (!latestMessage) return;
-
-        latestMessage.scrollIntoView({
-            behavior: "smooth",
-            block: "end"
-        });
-
-    };
-
-    requestAnimationFrame(() => {
-
-        scroll();
-
-        requestAnimationFrame(() => {
-            scroll();
-        });
-
-    });
+    // Do not use scrollIntoView(): it scrolls the whole page on mobile and
+    // moves the composer away from the keyboard. Only scroll this container.
+    chatBox.scrollTop = chatBox.scrollHeight;
 
 }
 
@@ -1026,6 +1021,7 @@ profileForm.addEventListener("submit", (event) => {
 
     // 画面位置を初期化
     syncChatLayout();
+    scheduleKeyboardOffset();
 
     scrollChatToBottom();
 
