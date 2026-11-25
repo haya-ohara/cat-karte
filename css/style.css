@@ -33,6 +33,7 @@ header {
   padding: 0 40px;
   background-color: #fdecd2;
   z-index: 100;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
 }
 
 /* 左側ロゴ */
