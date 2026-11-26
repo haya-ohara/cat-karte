@@ -1020,7 +1020,7 @@ body.result-mode {
     }
 
     body.chat-mode .chat-controls {
-        position: absolute;
+        position: fixed;
         top: var(--chat-controls-top, auto);
         bottom: auto;
     }
