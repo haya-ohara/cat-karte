@@ -484,6 +484,23 @@ button,input {
     cursor: wait;
 }
 
+@media (min-width: 769px) {
+    .profile-panel {
+        margin-top: 16px;
+    }
+
+    .profile-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 18px;
+    }
+
+    .profile-submit {
+        grid-column: 1 / -1;
+        margin-top: 0;
+    }
+}
+
 /* ========================================
    チャット・フォーム・結果の表示切替
 ======================================== */
@@ -494,11 +511,10 @@ button,input {
 
 .chat-page {
     width: min(760px, calc(100% - 40px));
-    min-height: calc(100dvh - 60px);
+    min-height: calc(50dvh);
     height: auto;
 
     margin: 0 auto;
-    padding: 20px 0 35px;
 
     overflow: visible;
 }
@@ -521,7 +537,6 @@ body.chat-mode .chat-page {
     max-width: 100%;
 
     height: auto;
-    min-height: calc(100dvh - 50px);
 
     margin: 0 auto;
 
