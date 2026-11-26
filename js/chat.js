@@ -83,12 +83,10 @@ function syncChatLayout() {
     }
 
     // 候補と入力欄を含む全体の高さを取得
-    const controlsHeight =
-        chatControls.getBoundingClientRect().height;
+    const controlsHeight = chatControls.getBoundingClientRect().height;
 
     // 下部に余裕を持たせる
-    const requiredSpace =
-        Math.ceil(controlsHeight + 40);
+    const requiredSpace = Math.ceil(controlsHeight + 40);
 
     // チャット画面の下部余白を自動調整
     chatPage.style.setProperty(
@@ -221,9 +219,28 @@ function scrollChatToBottom() {
 
     if (!chatBox || chatBox.hidden) return;
 
-    // Do not use scrollIntoView(): it scrolls the whole page on mobile and
-    // moves the composer away from the keyboard. Only scroll this container.
-    chatBox.scrollTop = chatBox.scrollHeight;
+    const latestMessage = chatBox.lastElementChild;
+
+    if (!latestMessage) return;
+
+    requestAnimationFrame(() => {
+        const viewport = window.visualViewport;
+        const viewportTop = viewport?.offsetTop ?? 0;
+        const viewportHeight = viewport?.height ?? window.innerHeight;
+        const controlsHeight = chatControls.hidden
+            ? 0
+            : chatControls.getBoundingClientRect().height;
+        const gap = window.matchMedia("(max-width: 768px)").matches ? 8 : 20;
+        const visibleBottom = viewportTop + viewportHeight - controlsHeight - gap;
+        const messageBottom = window.scrollY
+            + latestMessage.getBoundingClientRect().bottom;
+        const targetTop = Math.max(0, messageBottom - visibleBottom);
+
+        window.scrollTo({
+            top: targetTop,
+            behavior: "auto"
+        });
+    });
 
 }
 
