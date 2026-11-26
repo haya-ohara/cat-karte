@@ -30,7 +30,7 @@
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #fffffe;
     margin-bottom: 10px;
     letter-spacing: 0.05em;
@@ -44,7 +44,7 @@
 }
 
 .hero-title {
-    font-size: 4rem;
+    font-size: 5rem;
     color: #8C6F56;
     font-weight: 700;
     letter-spacing: 0.15em;
@@ -85,6 +85,10 @@
  
   width: 100%;
   text-align: center;
+}
+
+.message-text-box div{
+    margin: 25px 0;
 }
 
 .message-container {
@@ -145,11 +149,10 @@
     text-decoration: none;
     border-radius: 9999px;
     box-shadow: 0 4px 15px rgba(255, 201, 139, 0.4);
-    transition: filter 0.2s, transform 0.2s;
+    transition: transform 0.2s;
 }
 
 .consult-btn:hover {
-    filter: saturate(2);
     transform: scale(1.05);
 }
 

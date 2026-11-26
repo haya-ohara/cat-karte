@@ -128,7 +128,7 @@ function syncKeyboardOffset() {
     if (window.matchMedia("(max-width: 768px)").matches) {
         const gap = 8;
         const controlsHeight = chatControls.getBoundingClientRect().height;
-        const top = window.scrollY + viewport.offsetTop + viewport.height
+        const top = viewport.offsetTop + viewport.height
             - controlsHeight - gap;
 
         document.documentElement.style.setProperty(
